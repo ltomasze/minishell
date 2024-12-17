@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/17 14:51:20 by ltomasze          #+#    #+#              #
+#    Updated: 2024/12/17 16:20:25 by ltomasze         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Nazwa programu
 NAME = minishell
 
@@ -11,12 +23,8 @@ OBJS_DIR = obj
 INCLUDES = -Iincludes
 
 # Pliki źródłowe i obiektowe
-SRCS = $(SRCS_DIR)/main.c $(SRCS_DIR)/parser.c $(SRCS_DIR)/executor.c
+SRCS = $(SRCS_DIR)/main.c 
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
-
-# Libft
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
 
 # Flagi dla bibliotek
 LIBS = -lreadline -lncurses
@@ -25,8 +33,8 @@ LIBS = -lreadline -lncurses
 all: $(NAME)
 
 # Kompilacja programu
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS) $(LIBFT)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 
 # Kompilacja plików obiektowych
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
@@ -36,20 +44,13 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-# Kompilacja Libft
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-
 # Usuwanie plików obiektowych
 clean:
 	rm -f $(OBJS)
-	make clean -C $(LIBFT_DIR)
-	rm -rf $(OBJS_DIR)
 
 # Usuwanie plików obiektowych i programu
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C $(LIBFT_DIR)
 
 # Rekompilacja programu
 re: fclean all
