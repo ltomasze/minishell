@@ -13,7 +13,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
-SRCS = src/main.c src/executor.c src/builtins/pwd.c src/utils/ft_strcmp.c src/utils/error.c
+SRCS = src/main.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

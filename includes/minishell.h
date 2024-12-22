@@ -3,40 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 16:40:34 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/19 17:30:32 by ltomasze         ###   ########.fr       */
+/*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
+/*   Updated: 2024/12/21 18:39:52 by mbany            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdlib.h>
 
-// Funkcje parsujące
-/*char    **tokenize_input(const char *input);*/
+typedef struct s_envp
+{
+	char			*value;
+	struct s_envp	*next;
+}	t_envp;
 
-// Wbudowane polecenia
-//void    cd_command(char *path);
-void    pwd_command(void);
+typedef struct s_cmd
+{
+	char			**cmd;
+	char			*infile;
+	char			*outfile;
+	bool			append;
+	bool			here_doc;
+	bool			redir_error;
+	struct s_cmd	*next;
+}	t_cmd;
 
-// Egzekucja poleceń
-void    execute_command(char *command);
+typedef struct s_data
+{
+	t_cmd		*cmd;
+	t_envp		*envp;
+	char		**envp_arr;
+	char		*line;
+	int			cmd_exit_status;
+}	t_data;
 
-// Narzędzia pomocnicze
-int     ft_strcmp(const char *s1, const char *s2);
-//char    *ft_strchr(const char *s, int c);
-void    print_error(const char *prefix, const char *msg);
+/* errors */
+# define MANY_ARGS_ERR "Error: minishell does not accept arguments"
+# define NO_ENVP_ERR "Error: no environment found"
+
+/* Print a message describing the meaning of the value of errno.
+
+   This function is a possible cancellation point and therefore not
+   marked with __THROW.  */
+extern void perror (const char *__s);
 
 #endif
