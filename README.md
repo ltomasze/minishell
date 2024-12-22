@@ -14,16 +14,15 @@ Funkcja free_resources:
 Zwalnia pamięć zajętą przez dane w strukturze t_data.
 Po tym etapie program się kompiluje, wczytuje linie (ale nic nie robi z nimi) i poprawnie kończy działanie.
 
-
-
-<b>UNDER CONSTRUCTION</b>
-
 Krok 2: Obsługa sygnałów
 Zaimplementuj funkcję handle_signals:
 Obsługuje Ctrl+C (SIGINT), aby nie zakończyć programu, lecz wyczyścić linię wejściową i wyświetlić nowy prompt.
 Ignoruje Ctrl+\\ (SIGQUIT).
 Zintegrowana z pętlą główną w miejscu, w którym jest używana.
 Program nadal powinien się kompilować i teraz prawidłowo obsługiwać Ctrl+C oraz Ctrl+\.
+
+
+<b>UNDER CONSTRUCTION</b>
 
 Krok 3: Wczytywanie linii wejściowej
 Napisz funkcję read_line, która:
