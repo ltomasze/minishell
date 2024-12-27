@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/22 16:53:28 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:39:08 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	init(t_data *data,int argc,char **argv,char **envp)
 	data->line = NULL;
 	data->cmd_exit_status = 0;
 }
+
+/*envp == NULL we check if we have environment variables*/
 
 int	main(int argc, char **argv, char **envp)
 {

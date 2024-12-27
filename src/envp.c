@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:38:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/22 16:45:47 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:01:20 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,13 @@ void increment_shlvl(t_envp *head)
 	if (!shlvl)
 		perror("ft_itoa");
 	free(node->value);
-	if (!node->value)
-		perror("ft_strjoin");
+	/*if (!node->value)
+		perror("ft_strjoin");*/
 	free(shlvl);
 }
+
+/*if (!node->value)
+		perror("ft_strjoin"); ta część wygląda na niepotrzebną*/
 /*
  * Funkcja `fetch_envp` przekształca tablicę `envp` na listę połączoną `t_envp`.
  * Zwraca wskaźnik na początek listy.
