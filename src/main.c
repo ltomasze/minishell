@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/27 16:41:45 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:42:35 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	main(int argc, char **argv, char **envp)
 		handle_signals();
 		if (read_line(&data))
 			continue ;
+		if (data.line && *data.line)
+			add_history(data.line);
 	}
 
 }
