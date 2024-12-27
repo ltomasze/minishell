@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/22 16:57:13 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:39:58 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ t_envp *fetch_envp (char **envp);
 //signals
 void handle_sigint(int sig);
 void	handle_signals(void);
+//free
+void	free_ft_split(char **split);
+void	ft_free_commands(t_cmd **commands);
 
 
 #endif

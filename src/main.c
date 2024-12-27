@@ -6,15 +6,44 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/27 12:39:08 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:41:45 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
- * Funkcja `init` inicjalizuje strukturę `t_data` i przygotowuje środowisko dla programu.
- */
+void	free_resources(t_data *data)
+{
+	rl_clear_history();
+	if (data->cmd != NULL)
+	{
+		ft_free_commands(&(data->cmd));
+		data->cmd = NULL;
+	}
+	if (data->envp_arr)
+	{
+		free_ft_split(data->envp_arr);
+		data->envp_arr = NULL;
+	}
+	free_envp(data->envp);
+	data->envp = NULL;
+}
+
+int	read_line(t_data *data)
+{
+	data->line = readline("minishell> ");
+	if (!data->line)
+	{
+		printf("exit\n");
+		free_resources(data);
+		exit(0);
+	}
+	return (0);
+}
+
+/* !data->line gdy jest NULL czyli gdy użyto Ctrl+D(EOF) lub gdy był error na readline*/
+// Funkcja `init` inicjalizuje strukturę `t_data` i przygotowuje środowisko dla programu.
+
 void	init(t_data *data,int argc,char **argv,char **envp)
 {
 	(void)argv;
@@ -46,6 +75,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		handle_signals();
+		if (read_line(&data))
+			continue ;
 	}
 
 }
+
+/* if (read_line(&data))      // Wczytuje linię
+        continue;              // Jeśli wczytano linię, kontynuuj*/
