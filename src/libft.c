@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:20:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/22 16:26:09 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:04:30 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,4 +181,57 @@ char	*ft_strchr(const char *s, int c)
 	if (c == '\0')
 		p = &s[i];
 	return ((char *)p);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*subs;
+	size_t	i;
+	size_t	j;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (i < len && start < ft_strlen(s) && s[start + i])
+		i++;
+	j = 0;
+	subs = malloc((i + 1) * sizeof(char));
+	if (!subs)
+		return (NULL);
+	while (j < i && start < ft_strlen(s))
+	{
+		subs[j] = s[start + j];
+		j++;
+	}
+	subs[i] = '\0';
+	return (subs);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	i;
+	char	*s;
+
+	if (s1 == NULL || set == NULL )
+		return (NULL);
+	i = 0;
+	s = (char *)s1;
+	while (*s && ft_strchr(set, *s))
+		s++;
+	i = ft_strlen(s);
+	while (i && ft_strchr(set, s[i]))
+		i--;
+	return (ft_substr(s, 0, i + 1));
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }

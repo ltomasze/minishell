@@ -6,14 +6,15 @@
 #    By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:44:33 by ltomasze          #+#    #+#              #
-#    Updated: 2024/12/27 16:38:10 by ltomasze         ###   ########.fr        #
+#    Updated: 2024/12/28 12:02:23 by ltomasze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
-SRCS = src/main.c src/libft.c src/envp.c src/signals.c src/free.c
+SRCS = src/main.c src/libft.c src/envp.c src/signals.c src/free.c src/check.c \
+src/error.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

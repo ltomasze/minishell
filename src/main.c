@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/27 17:42:35 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:14:56 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (data.line && *data.line)
 			add_history(data.line);
+		if (check_syntax(data.line))
+		{
+			free(data.line);
+			continue ;
+		}
 	}
 
 }

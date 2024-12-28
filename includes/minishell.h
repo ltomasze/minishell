@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/27 16:39:58 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:05:07 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 #define	STDIN_FILENO	0	/* Standard input.  */
 #define	STDOUT_FILENO	1	/* Standard output.  */
 #define	STDERR_FILENO	2	/* Standard error output.  */
+#define MISS_QUOTE_ERR "Syntax error: missing quote"
 
 /* Print a message describing the meaning of the value of errno.
 
@@ -69,6 +70,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int	ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
 char	*ft_strchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strtrim(char const *s1, char const *set);
+void	ft_putstr_fd(char *s, int fd);
+
 //envp
 void	free_envp(t_envp *head);
 t_envp	*fetch_envp_node(t_envp *head, char *key);
@@ -80,6 +85,12 @@ void	handle_signals(void);
 //free
 void	free_ft_split(char **split);
 void	ft_free_commands(t_cmd **commands);
+//check
+int	check_for_unclosed_quotes(char *line);
+int	check_line_if_empty(char *line);
+int	check_syntax(char *line);
+//error
+int	ft_error_message(char *str, int num);
 
 
 #endif
