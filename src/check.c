@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:39:03 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/28 13:06:33 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:54:56 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	check_for_unclosed_quotes(char *line)
 	return (0);
 }
 
+
 int	check_line_if_empty(char *line)
 {
 	char	*trimmed_line;
@@ -63,6 +64,18 @@ int	check_line_if_empty(char *line)
 Usuwa białe znaki (spacje i tabulatory) z początku i końca linii przy pomocy ft_strtrim.
 Sprawdza, czy wynikowa linia ma długość równą 0 (ft_strlen), 
 czyli czy użytkownik nie wprowadził żadnych znaków poza białymi znakami.*/
+/*1: Obsługa błędów alokacji pamięci
+
+Jeśli funkcja ft_strtrim nie zadziała poprawnie, perror informuje o błędzie, 
+a wartość 1 sygnalizuje, że funkcja nie mogła wykonać swojego zadania.
+-1: Specjalne przypadki pustej linii
+
+Kod -1 pozwala rozróżnić pustą linię od normalnego działania funkcji. 
+W programie można ten wynik użyć do pominięcia pustych linii lub wyświetlenia odpowiedniego komunikatu użytkownikowi.
+0: Poprawna, niepusta linia
+
+Kod 0 oznacza, że funkcja działała poprawnie i linia zawiera treść. 
+To pozwala kontynuować przetwarzanie wejścia.*/
 
 int	check_syntax(char *line)
 {

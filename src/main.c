@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/28 11:14:56 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 13:41:46 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,19 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /* if (read_line(&data))      // Wczytuje linię
-        continue;              // Jeśli wczytano linię, kontynuuj*/
+        continue;              // Jeśli wczytano linię, kontynuuj
+
+data.line to zmienna dynamiczna używana do przechowywania
+aktualnej linii wejściowej wprowadzonej przez użytkownika np. ls -la
+
+Kiedy używamy data.line vs. data->line?
+data.line: Używamy, gdy mamy bezpośredni obiekt struktury, np.:
+t_data data; // Zmienna na stosie
+data.line = readline("minishell> ");
+data->line: Używamy, gdy mamy wskaźnik do struktury, np.:
+t_data *data = malloc(sizeof(t_data)); // Zmienna w dynamicznej pamięci
+data->line = readline("minishell> ");
+Dlaczego to ważne?
+Operator . działa na samą strukturę.
+Operator -> działa na wskaźnik do struktury.
+*/
