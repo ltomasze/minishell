@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/28 12:05:07 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:18:52 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 #define	STDOUT_FILENO	1	/* Standard output.  */
 #define	STDERR_FILENO	2	/* Standard error output.  */
 #define MISS_QUOTE_ERR "Syntax error: missing quote"
+#define MISS_CMD_ERR "Syntax error: missing command"
 
 /* Print a message describing the meaning of the value of errno.
 
@@ -73,6 +74,8 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 void	ft_putstr_fd(char *s, int fd);
+int	ft_isspace(char c);
+int	ft_isalnum(int c);
 
 //envp
 void	free_envp(t_envp *head);
@@ -89,6 +92,11 @@ void	ft_free_commands(t_cmd **commands);
 int	check_for_unclosed_quotes(char *line);
 int	check_line_if_empty(char *line);
 int	check_syntax(char *line);
+//check1
+int	check_for_preceding_command(char *line, int i);
+int	check_for_following_command(char *line, int i);
+void	go_to_next_quote(char *line, int *i, bool go_back);
+int	check_for_missing_command(char *line);
 //error
 int	ft_error_message(char *str, int num);
 

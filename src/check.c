@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:39:03 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/28 13:54:56 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:03:32 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_syntax(char *line)
 		return (-1);
 	if (check_for_unclosed_quotes(line))
 		return (ft_error_message(MISS_QUOTE_ERR, -1));
-	/*if (check_for_missing_command(line))
-		return (ft_error_message(MISS_CMD_ERR, -1));*/
+	if (check_for_missing_command(line))
+		return (ft_error_message(MISS_CMD_ERR, -1));
 	return (0);
 }
