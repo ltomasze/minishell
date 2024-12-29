@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:39:03 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/28 14:03:32 by ltomasze         ###   ########.fr       */
+/*   Updated: 2024/12/29 13:28:09 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int	check_for_unclosed_quotes(char *line)
 	return (0);
 }
 
+/*quote = '\0' można zostawić bez przypisania do nulla, ale to dobra praktyka
+'\'' - backslash jest do ustawienia znaku specjalnego na zwykły znak*/
+
 
 int	check_line_if_empty(char *line)
 {
@@ -60,22 +63,11 @@ int	check_line_if_empty(char *line)
 	return (0);
 }
 
-/*Wywoływana jest funkcja check_line_if_empty, która:
-Usuwa białe znaki (spacje i tabulatory) z początku i końca linii przy pomocy ft_strtrim.
-Sprawdza, czy wynikowa linia ma długość równą 0 (ft_strlen), 
-czyli czy użytkownik nie wprowadził żadnych znaków poza białymi znakami.*/
-/*1: Obsługa błędów alokacji pamięci
 
-Jeśli funkcja ft_strtrim nie zadziała poprawnie, perror informuje o błędzie, 
-a wartość 1 sygnalizuje, że funkcja nie mogła wykonać swojego zadania.
--1: Specjalne przypadki pustej linii
-
-Kod -1 pozwala rozróżnić pustą linię od normalnego działania funkcji. 
-W programie można ten wynik użyć do pominięcia pustych linii lub wyświetlenia odpowiedniego komunikatu użytkownikowi.
-0: Poprawna, niepusta linia
-
-Kod 0 oznacza, że funkcja działała poprawnie i linia zawiera treść. 
-To pozwala kontynuować przetwarzanie wejścia.*/
+/*1 -błąd, funkcja ft_strtrim nie mogła wykonać swojego zadania
+(błąd alokacji pamięci w ft_strtrim);
+-1 -pusta linia;
+0 -sukces, funkcja działa poprawnie, a linia zawiera treść;*/
 
 int	check_syntax(char *line)
 {
