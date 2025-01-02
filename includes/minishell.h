@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/28 15:18:52 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:04:18 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_data
 #define	STDERR_FILENO	2	/* Standard error output.  */
 #define MISS_QUOTE_ERR "Syntax error: missing quote"
 #define MISS_CMD_ERR "Syntax error: missing command"
+#define SANITATION_ERR "Error: line sanitation error"
 
 /* Print a message describing the meaning of the value of errno.
 
@@ -76,6 +77,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 void	ft_putstr_fd(char *s, int fd);
 int	ft_isspace(char c);
 int	ft_isalnum(int c);
+int	ft_isalpha(int c);
 
 //envp
 void	free_envp(t_envp *head);
@@ -98,7 +100,11 @@ int	check_for_following_command(char *line, int i);
 void	go_to_next_quote(char *line, int *i, bool go_back);
 int	check_for_missing_command(char *line);
 //error
+void	msg_error(char *err);
 int	ft_error_message(char *str, int num);
-
+//sanitation
+void	sanitaze_line(t_data *data);
+//sanitation1
+char	*process_str(char *str, char *str_final, int str_final_len);
 
 #endif

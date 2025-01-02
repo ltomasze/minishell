@@ -6,11 +6,17 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:00:29 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/28 13:46:08 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:44:37 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	msg_error(char *err)
+{
+	write(2, err, ft_strlen(err));
+	write(2, "\n", 1);
+}
 
 int	ft_error_message(char *str, int num)
 {

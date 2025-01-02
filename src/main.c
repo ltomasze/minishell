@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2024/12/28 13:41:46 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:37:49 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 			free(data.line);
 			continue ;
 		}
+		sanitaze_line(&data);
 	}
 
 }

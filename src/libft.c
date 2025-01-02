@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:20:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/28 15:14:56 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:29:07 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (ft_substr(s, 0, i + 1));
 }
 
+//usuwa tylko znaki białe znaki z przodu i z tyłu stringa, nie wewnątrz stringa
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
@@ -250,5 +252,12 @@ int	ft_isalnum(int c)
 {
 	if ((c >= 48 && c <= 57) || (c >= 97 && c <= 122) || (c >= 65 && c <= 90))
 		return (8);
+	return (0);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1024);
 	return (0);
 }
