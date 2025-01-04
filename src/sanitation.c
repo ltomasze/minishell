@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:38:33 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/02 15:33:05 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:42:35 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	sanitaze_line(t_data *data)
 	free(str);
 }
 
-/*potrzebujemy długości około dwukrotnie większej bo jęlsi np. > nie ma spacji
-przed i za to jest to dodawane*/
+/*rozważyć czy dla ft_strlena potrzebna jest długość razy dwa,
+bo później w realloc_str_final jeśli dla docelowo edytowanej
+komendy przypisuje on na początek długość razy dwa.*/

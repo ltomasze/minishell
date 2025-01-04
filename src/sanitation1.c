@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 14:58:05 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/04 16:40:48 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:05:50 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ static void	handle_quotes(char *str, char *str_final, int *i, int *j)
 		str_final[*j] = '\0';
 	}
 }
+/* i_cp numer indeksu w stringu w którym trafiamy na cudzysłów*/
+/* *i - i_cp + 1 taki zapis 
+aby na końcu skopiowało jeszcze końcowy cudzysłów*/
+/* *j += *i - i_cp; miejsce w finałowym str, gdzie ma kopiować
+zawartośc cudzysłowów*/
+/* warunek jest po to aby dodać spacje po cudzyśłowie
+jeśli od razu trafił sie operator taki jak | lub <*/
 
 static void	handle_operators(const char *str, char *str_final, int *i, int *j)
 {
