@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 14:58:05 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/02 15:01:17 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:40:48 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,3 +87,17 @@ char	*process_str(char *str, char *str_final, int str_final_len)
 	str_final[j] = '\0';
 	return (str_final);
 }
+/* if (str[i] == '"' || str[i] == '\'')
+			handle_quotes(str, str_final, &i, &j);
+jeśli w pętli występuje cudzysłów to przenosi całą zawartość
+bez zmian tego co jest w środku*/
+/*else if (ft_isspace(str[i]) && (i == 0 || ft_isspace(str[i - 1])))
+			i++;
+sprawdza czy na i == 0 jest spacja lub czy aktualny i jest spacją
+jesli poprzedni był spacją*/
+/*((ft_isalnum(str[i]) && is_operator(str[i + 1]))
+			|| (is_operator(str[i]) && ft_isalpha(str[i + 1]))
+			|| (str[i] == '|' && (str[i + 1] == '$' || str[i + 1] == '<'
+					|| str[i + 1] == '>')))
+			handle_operators(str, str_final, &i, &j);
+sprawdza czy przed lub po operatorach jest spacja, jęsli nie do dodaje spacje*/
