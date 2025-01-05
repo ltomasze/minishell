@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/05 14:14:53 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:18:42 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void handle_sigint(int sig);
 void	handle_signals(void);
 //free
 void	ft_free_tokens(t_token **tokens);
-int	ft_perror_free(char *first, char *second, char *third);
 void	free_ft_split(char **split);
 void	ft_free_commands(t_cmd **commands);
 //check
