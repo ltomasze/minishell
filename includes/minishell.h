@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/02 15:04:18 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:14:53 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,32 @@ typedef struct s_data
 	int			cmd_exit_status;
 }	t_data;
 
+typedef struct s_token
+{
+	int				type;
+	char			*text;
+	struct s_token	*next;
+}	t_token;
+
+/*tokens*/
+# define T_OUT_REDIR	1 
+# define T_IN_REDIR		2
+# define T_APPEND		3
+# define T_HEREDOC		4
+# define T_PIPE			5
+# define T_WORD			6
+
 /* errors */
 # define MANY_ARGS_ERR "Error: minishell does not accept arguments"
 # define NO_ENVP_ERR "Error: no environment found"
+#define MISS_QUOTE_ERR "Syntax error: missing quote"
+#define MISS_CMD_ERR "Syntax error: missing command"
+#define SANITATION_ERR "Error: line sanitation error"
 
 /* Standard file descriptors.  */
 #define	STDIN_FILENO	0	/* Standard input.  */
 #define	STDOUT_FILENO	1	/* Standard output.  */
 #define	STDERR_FILENO	2	/* Standard error output.  */
-#define MISS_QUOTE_ERR "Syntax error: missing quote"
-#define MISS_CMD_ERR "Syntax error: missing command"
-#define SANITATION_ERR "Error: line sanitation error"
 
 /* Print a message describing the meaning of the value of errno.
 
@@ -88,6 +103,8 @@ t_envp *fetch_envp (char **envp);
 void handle_sigint(int sig);
 void	handle_signals(void);
 //free
+void	ft_free_tokens(t_token **tokens);
+int	ft_perror_free(char *first, char *second, char *third);
 void	free_ft_split(char **split);
 void	ft_free_commands(t_cmd **commands);
 //check
@@ -102,9 +119,31 @@ int	check_for_missing_command(char *line);
 //error
 void	msg_error(char *err);
 int	ft_error_message(char *str, int num);
+int	ft_perror_message(void);
+int	ft_perror_free(char *first, char *second, char *third);
 //sanitation
 void	sanitaze_line(t_data *data);
 //sanitation1
 char	*process_str(char *str, char *str_final, int str_final_len);
+//cmds
+t_token	*ft_tokenizer(t_data *data, char *input);
+int	ft_cmds_creation(t_data *data);
+//tokenizer
+void	ft_skip_sq(int *n, char *str);
+int	create_token(char *str, int type, t_token **tokens);
+int	ft_is_redir(char *input, int *i, t_token **tokens);
+//tokenizer1
+int	ft_is_pipe(char *input, int *i, t_token **tokens);
+int	ft_check_for_dollar(char **word, t_data *data);
+int	ft_extract_word(char *str, int *n, t_token **tokens, t_data *data);
+int	ft_create_word_tok(char *str, int *i, t_token **tokens, t_data *data);
+int	ft_is_word(char *input, int *i, t_token **tokens, t_data *data);
+//tokenizer2
+int	ft_dollar(int *i, char **word, t_data *data);
+//tokenizer3
+int	ft_cross_dq(int *i, char **word, t_data *data);
+int	ft_cut_token(int *i, char **word, t_token **tokens);
+int	ft_clear_quote(int *i, char **word, char del);
+int	ft_cross_word(char **word, t_token **tokens);
 
 #endif

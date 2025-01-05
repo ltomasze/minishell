@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:00:29 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/02 13:44:37 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:19:43 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ int	ft_error_message(char *str, int num)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
 	return (num);
+}
+
+int	ft_perror_message(void)
+{
+	perror(NULL);
+	return (-1);
+}
+
+int	ft_perror_free(char *first, char *second, char *third)
+{
+	ft_perror_message();
+	if (first)
+		free(first);
+	if (second)
+		free(second);
+	if (third)
+		free(third);
+	return (-1);
 }
 
 /*ft_putstr_fd(str, 2);

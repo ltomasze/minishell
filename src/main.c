@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/04 18:58:40 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/05 12:44:59 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		sanitaze_line(&data);
 		if (!data.line)
+			continue ;
+		if (ft_cmds_creation(&data) == -1)
 			continue ;
 	}
 

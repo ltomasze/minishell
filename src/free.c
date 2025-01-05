@@ -6,11 +6,28 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:33:56 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/27 17:10:08 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:16:54 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_free_tokens(t_token **tokens)
+{
+	t_token	*temp;
+
+	if (!tokens || !*tokens)
+		return ;
+	while (*tokens)
+	{
+		temp = *tokens;
+		*tokens = (*tokens)->next;
+		if (temp->text)
+			free(temp->text);
+		free(temp);
+	}
+	*tokens = NULL;
+}
 
 void	free_ft_split(char **split)
 {
