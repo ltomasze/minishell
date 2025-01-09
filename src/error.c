@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:00:29 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 13:19:43 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:30:01 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	ft_perror_message(void)
 	perror(NULL);
 	return (-1);
 }
-
+/* perror wypisuje standardowe komunikaty w zalezności od wartości errno
+np na mallocku otrzymujac wartość null wypisze "Cannot allocate memory"
+p.s. null w nawiasie to nie wynik tylko że poza standardowym odpowiedzią ma
+nic więcej nie dopisać, gdyby np. było perror(Error) to bedzie komunikat
+Error: Cannot allocate memory */
 int	ft_perror_free(char *first, char *second, char *third)
 {
 	ft_perror_message();

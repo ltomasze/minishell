@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:46:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 14:11:59 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:56:05 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,8 @@ int	ft_cmds_creation(t_data *data)
 	}
 	return (0);
 }
+
+/* ft_cmds_creation funkcja dzieli komendę na tokeny poprzez funkcję tokenizer
+i sprawdza czy w przypadku pip lub redirection dane po każdej stronie od
+tego operatora są prawidłowe, następnie tworzy strukturę komend pomiędzy
+operatorami np. [echo "Hello, World!"] -> [grep "World"] -> [> output.txt]*/

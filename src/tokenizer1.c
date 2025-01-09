@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:24:27 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 13:46:53 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:07:00 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	ft_extract_word(char *str, int *n, t_token **tokens, t_data *data)
 	return (0);
 }
 
-
 int	ft_create_word_tok(char *str, int *i, t_token **tokens, t_data *data)
 {
 	int	n;
@@ -113,6 +112,7 @@ int	ft_create_word_tok(char *str, int *i, t_token **tokens, t_data *data)
 	*i = *i + n;
 	return (0);
 }
+/*tworzy token*/
 
 int	ft_is_word(char *input, int *i, t_token **tokens, t_data *data)
 {

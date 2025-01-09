@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:06:03 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 13:44:54 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:09:24 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,24 @@ int	create_token(char *str, int type, t_token **tokens)
 	}
 	return (0);
 }
-
+/*
+	new_token->next = NULL; nowy token ma być ostatni na liście;
+	new_token->type = type; ustawia typ tokenu;
+	new_token->text = str; przypisuje teskt do tokenu;
+	if (!*tokens)
+		*tokens = new_token; jesli lista tokenów jest pusta, przypisuje
+							 token jako pierwszy element listy.
+	else
+	{
+		current = *tokens; wkazuje na pierwszy token;
+		while (current->next) pętla przechodzi przez wystkie tokeny,
+							  aż trafi na ostatnil
+			current = current->next;
+		current->next = new_token; dodaje nowy token;
+	}
+	return (0);
+}
+*/
 static int	ft_single_redirection(char x, t_token **tokens, char *str)
 {
 	int	type;
@@ -93,6 +110,10 @@ static int	ft_append_redir(char *input, int *i, t_token **tokens, char *str)
 	*i = *i + 2;
 	return (0);
 }
+
+/*<< (heredoc), >> (append, czyli dopisanie do pliku).
+*i = *i + 2; ponieważ gdy trafiamy na < musimy przeskoczyć od razu o
+nazwa error jest myląca, lepiej token_creation_result <<*/
 
 int	ft_is_redir(char *input, int *i, t_token **tokens)
 {
