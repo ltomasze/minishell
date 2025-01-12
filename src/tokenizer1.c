@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:24:27 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/09 18:07:00 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:37:33 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ int	ft_check_for_dollar(char **word, t_data *data)
 	}
 	return (0);
 }
+/*wszystko co znajduje się w '' jest w shell traktowane jako
+zwykły tekst, natomiast w podwójnym parser interpretuje $ i 
+rozwija jego wartości np.
+echo "Hello $USER" to Hello John
+"This is $SHELL" to This is /bin/bash*/
 
 int	ft_extract_word(char *str, int *n, t_token **tokens, t_data *data)
 {

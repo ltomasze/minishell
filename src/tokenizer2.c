@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:54:04 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 13:59:57 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:35:16 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,12 @@ static int	ft_valid_dollar(int *i, char *word, char **var)
 	ft_strlcpy(*var, &word[1 + (*i)], n);
 	return (0);
 }
+
+/*
+n = 1 bo funkcja sprawdza po znalezieniu pierwszego dolara;
+$USER: Nazwa zmiennej środowiskowej.
+$$: PID procesu.
+$?: Status wyjścia ostatniego polecenia.*/
 
 int	ft_dollar(int *i, char **word, t_data *data)
 {
