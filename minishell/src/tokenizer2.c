@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:54:04 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/12 18:35:16 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:13:46 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,37 @@ static int	ft_valid_dollar(int *i, char *word, char **var)
 	ft_strlcpy(*var, &word[1 + (*i)], n);
 	return (0);
 }
-
+/*
+i: Wskaźnik na bieżący indeks w analizowanym ciągu znaków.
+word: Analizowany ciąg tekstowy, w którym znajduje się znak $.
+var: Wskaźnik na wskaźnik, gdzie zostanie zapisany ciąg reprezentujący nazwę zmiennej środowiskowej, jeśli jest poprawna.
+Zwracana wartość: Liczba znaków przetworzonych przez funkcję (lub błąd, jeśli funkcja nie powiodła się).
+*/
+/*
+else if (!(word[*i + n]) || (!ft_isalpha(word[*i + n]) && word[*i + n] != '_'))
+    return (1);
+Jeśli:
+Po $ nie ma już żadnego znaku (koniec ciągu) lub
+Po $ znajduje się niealfabetyczny znak (np. @, #, 1) i nie jest to _ (podkreślenie),
+Funkcja zwraca 1, sygnalizując, że $ nie jest poprawną zmienną.
+Przykład:
+word = "$@HOME":
+$@ nie jest poprawną zmienną, funkcja zwraca 1.
+*/
+/*
+else
+	{
+		while (word[*i + n] && (ft_isalnum(word[*i + n])
+				|| word[*i + n] == '_'))
+			n++;
+	}
+tutaj funkcja sprawdza czy znaki to A-Z, a-z, 0-9, jęsli tak to uznaje że jest ok
+*/
 /*
 n = 1 bo funkcja sprawdza po znalezieniu pierwszego dolara;
 $USER: Nazwa zmiennej środowiskowej.
 $$: PID procesu.
-$?: Status wyjścia ostatniego polecenia.*/
+$?: Status wyjścia ostatniego polecenia jak 0 to sukces, 1 to błąd.*/
 
 int	ft_dollar(int *i, char **word, t_data *data)
 {
