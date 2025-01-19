@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:46:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/19 17:05:30 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:10:01 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	ft_cmds_creation(t_data *data)
 		data->cmd_exit_status = 1;
 		return (-1);
 	}
-	/*if (tokens == NULL)
+	if (tokens == NULL)
 		return (-1);
-	data->cmd = ft_commands(tokens);*/
+	/*data->cmd = ft_commands(tokens);*/
 	if (data->cmd == NULL)
 	{
 		data->cmd_exit_status = 1;

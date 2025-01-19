@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 16:59:10 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/19 17:04:47 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:08:37 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ int	ft_remove_empty_tokens(t_token **tokens)
 	}
 	return (0);
 }
+/*
+if (prev && (prev->type != T_WORD && prev->type != T_PIPE
+					&& prev->type != T_HEREDOC))
+funkcja sprawdza czy nie jest to błąd składniowy jak np:
+["echo", ">", "", "file.txt"]
+bo jeśli prev token to ">"" a następny to pusty token,
+to nie ma gdzie zrobić przekierowania.
+*/
 
 void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev)
 {
@@ -53,6 +61,7 @@ void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev)
 	free(*to_del);
 	*to_del = (*prev)->next;
 }
+/*usuwa pusty token bo może gdyż nic on nie wnosi w składnie*/
 
 int	ft_check_tokens(t_token **tokens)
 {
@@ -63,3 +72,5 @@ int	ft_check_tokens(t_token **tokens)
 	}
 	return (0);
 }
+
+/*funkcja do sprawdzenia pustych tokenów */
