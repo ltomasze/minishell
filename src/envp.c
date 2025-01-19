@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:38:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/27 15:01:20 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:15:18 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,34 @@ t_envp	*fetch_envp_node(t_envp *head, char *key)
 	}
 	return (NULL);
 }
+/*
+Funkcja fetch_envp_node wyszukuje w liście zmiennych środowiskowych t_envp węzeł (node),
+który odpowiada podanemu kluczowi key.
+Zwraca wskaźnik na znaleziony węzeł lub NULL, jeśli nie znajdzie odpowiedniego wpisu.
+t_envp *head:
+Wskaźnik na początek listy jednokierunkowej przechowującej zmienne środowiskowe w formacie key=value.
+char *key: Nazwa zmiennej środowiskowej, którą chcemy znaleźć w liście, np. "USER".
+*/
+/*
+key_len = ft_strlen(key);
+Funkcja oblicza długość klucza key. Jest to potrzebne, aby poprawnie porównać nazwę zmiennej
+z wartością przechowywaną w liście node->value.
+*/
+/*
+node = head;
+node zaczyna od pierwszego węzła listy (głowy listy head).
+*/
+/*
+if (ft_strncmp(key, node->value, key_len) == 0 && node->value[key_len] == '=')
+Porównuje początkowy fragment node->value z kluczem key:
+ft_strncmp(key, node->value, key_len) == 0:
+Sprawdza, czy key pasuje do pierwszych key_len znaków w node->value.
+node->value[key_len] == '=':
+Sprawdza, czy po nazwie zmiennej (key) znajduje się znak =. Gwarantuje to, że porównanie jest dokładne (np. nie zwróci błędnie "USERNAME" zamiast "USER").
+Jeśli oba warunki są spełnione, oznacza to, że znaleziono poprawny węzeł.
+node = node->next;
+Jeśli aktualny węzeł nie pasuje, funkcja przechodzi do następnego węzła w liście.
+*/
 /*
  * Funkcja `increment_shlvl` zwiększa wartość zmiennej środowiskowej `SHLVL`.
  * `SHLVL` odpowiada liczbie razy, kiedy uruchomiono powłokę w tej samej sesji.
