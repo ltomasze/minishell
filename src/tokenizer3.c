@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:00:56 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 14:07:39 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:32:53 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	ft_cut_token(int *i, char **word, t_token **tokens)
 	*i = 0;
 	return (1);
 }
+/*funkcja do usuwania białych znaków ze stringa, jeśli słowa nie sa
+w cudzysłowie, napodstawie tych biąłych znaków dzieli na tokeny*/
 
 int	ft_clear_quote(int *i, char **word, char del)
 {
@@ -78,6 +80,8 @@ int	ft_clear_quote(int *i, char **word, char del)
 	*i = *i + n - 1;
 	return (0);
 }
+
+/* funkcja do czyszczenia słów z cudzysłów, aby do tokenów przesłać same słowa*/
 
 int	ft_cross_word(char **word, t_token **tokens)
 {

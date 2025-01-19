@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:33:56 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/05 14:16:54 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:53:50 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_free_tokens(t_token **tokens)
 	}
 	*tokens = NULL;
 }
+/* przekaż token do temp i przesuń się do następnego tokena, gdy wszystkie tokeny
+przejdą do  temp, wyczyść temp*/
 
 void	free_ft_split(char **split)
 {

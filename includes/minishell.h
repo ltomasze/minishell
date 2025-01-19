@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/05 14:18:42 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:07:34 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_token
 #define MISS_QUOTE_ERR "Syntax error: missing quote"
 #define MISS_CMD_ERR "Syntax error: missing command"
 #define SANITATION_ERR "Error: line sanitation error"
+# define NULL_REDIR "Error: ambiguous redirect"
 
 /* Standard file descriptors.  */
 #define	STDIN_FILENO	0	/* Standard input.  */
@@ -144,5 +145,9 @@ int	ft_cross_dq(int *i, char **word, t_data *data);
 int	ft_cut_token(int *i, char **word, t_token **tokens);
 int	ft_clear_quote(int *i, char **word, char del);
 int	ft_cross_word(char **word, t_token **tokens);
+//check_tokens
+int	ft_remove_empty_tokens(t_token **tokens);
+void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev);
+int	ft_check_tokens(t_token **tokens);
 
 #endif

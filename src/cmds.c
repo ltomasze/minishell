@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:46:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/09 15:56:05 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:05:30 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_token	*ft_tokenizer(t_data *data, char *input)
 		if (input[i] == ' ')
 			i++;
 	}
-	/*if (input && input[i])
-		ft_free_tokens(&tokens);*/
+	if (input && input[i])
+		ft_free_tokens(&tokens);
 	free(data->line);
 	data->line = NULL;
 	return (tokens);
@@ -48,12 +48,12 @@ int	ft_cmds_creation(t_data *data)
 		data->cmd_exit_status = 1;
 		return (-1);
 	}
-	/*if (ft_check_tokens(&tokens) == -1)
+	if (ft_check_tokens(&tokens) == -1)
 	{
 		data->cmd_exit_status = 1;
 		return (-1);
 	}
-	if (tokens == NULL)
+	/*if (tokens == NULL)
 		return (-1);
 	data->cmd = ft_commands(tokens);*/
 	if (data->cmd == NULL)

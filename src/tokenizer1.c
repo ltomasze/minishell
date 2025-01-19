@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:24:27 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/12 17:37:33 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:31:58 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ int	ft_extract_word(char *str, int *n, t_token **tokens, t_data *data)
 	}
 	return (0);
 }
+
+/*funkcja do wydzielania słów z komendy a więc $USER_name na JohnDoe
+str = "$USER_name"
+n = 10 (liczba znaków do przetworzenia)
+tokens (początkowo pusta lista tokenów)
+data->envp (zawiera zmienne środowiskowe, np. USER_name=JohnDoe)
+*/
 
 int	ft_create_word_tok(char *str, int *i, t_token **tokens, t_data *data)
 {
