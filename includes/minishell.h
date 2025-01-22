@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/19 17:07:34 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:47:42 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <fcntl.h>
 
 typedef struct s_envp
 {
@@ -68,11 +69,16 @@ typedef struct s_token
 #define MISS_CMD_ERR "Syntax error: missing command"
 #define SANITATION_ERR "Error: line sanitation error"
 # define NULL_REDIR "Error: ambiguous redirect"
+# define REDIR_TO_OPR "Syntax error: redirection followed by unexpected token"
 
 /* Standard file descriptors.  */
 #define	STDIN_FILENO	0	/* Standard input.  */
 #define	STDOUT_FILENO	1	/* Standard output.  */
 #define	STDERR_FILENO	2	/* Standard error output.  */
+
+/*permissions to file*/
+# define READ			1
+# define WRITE			2
 
 /* Print a message describing the meaning of the value of errno.
 
@@ -126,8 +132,15 @@ void	sanitaze_line(t_data *data);
 //sanitation1
 char	*process_str(char *str, char *str_final, int str_final_len);
 //cmds
+t_cmd	*ft_commands(t_token *tokens);
 t_token	*ft_tokenizer(t_data *data, char *input);
 int	ft_cmds_creation(t_data *data);
+//cmds1
+int	ft_redir(t_token **current_tok, t_token *head_tok,
+		t_cmd **current_cmd, t_cmd *head_cmd);
+int	ft_set_command(t_cmd **commands);
+//cmds_redir
+int	ft_set_redir(t_token **current_tok, t_cmd *current_cmd);
 //tokenizer
 void	ft_skip_sq(int *n, char *str);
 int	create_token(char *str, int type, t_token **tokens);
@@ -149,5 +162,7 @@ int	ft_cross_word(char **word, t_token **tokens);
 int	ft_remove_empty_tokens(t_token **tokens);
 void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev);
 int	ft_check_tokens(t_token **tokens);
+//utils
+int	ft_check_access(char *file, int type);
 
 #endif
