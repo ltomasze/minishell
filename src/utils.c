@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:36:52 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/22 13:37:56 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:12:48 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,5 @@ int	ft_check_access(char *file, int type)
 	}
 	return (0);
 }
+/*funkcja do sprawdzania czy plik jest dostępny do odczytu czyli READ,
+jak R_OK*/

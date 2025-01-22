@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/22 13:47:42 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:17:22 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_token
 # define T_HEREDOC		4
 # define T_PIPE			5
 # define T_WORD			6
+# define T_ARG			7
 
 /* errors */
 # define MANY_ARGS_ERR "Error: minishell does not accept arguments"
@@ -132,12 +133,16 @@ void	sanitaze_line(t_data *data);
 //sanitation1
 char	*process_str(char *str, char *str_final, int str_final_len);
 //cmds
+int	ft_pipe(t_token **current_tok, t_token *head_tok,
+		t_cmd **current_cmd, t_cmd *head_cmd);
+int	ft_redir(t_token **current_tok, t_token *head_tok,
+		t_cmd **current_cmd, t_cmd *head_cmd);
 t_cmd	*ft_commands(t_token *tokens);
 t_token	*ft_tokenizer(t_data *data, char *input);
 int	ft_cmds_creation(t_data *data);
 //cmds1
-int	ft_redir(t_token **current_tok, t_token *head_tok,
-		t_cmd **current_cmd, t_cmd *head_cmd);
+int	ft_command(t_token **cur_token, t_token *tokens,
+	t_cmd **cur_command, t_cmd *cmds);
 int	ft_set_command(t_cmd **commands);
 //cmds_redir
 int	ft_set_redir(t_token **current_tok, t_cmd *current_cmd);

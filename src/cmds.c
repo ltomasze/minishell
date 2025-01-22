@@ -6,11 +6,30 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 12:46:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/22 13:39:37 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:17:45 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_pipe(t_token **current_tok, t_token *head_tok,
+		t_cmd **current_cmd, t_cmd *head_cmd)
+{
+	if (!*current_tok)
+		return (0);
+	if ((*current_tok)->type == T_PIPE)
+	{
+		if (ft_set_command(current_cmd) == -1)
+		{
+			ft_free_tokens(&head_tok);
+			ft_free_commands(&head_cmd);
+			return (-1);
+		}
+		(*current_tok) = (*current_tok)->next;
+		(*current_cmd) = (*current_cmd)->next;
+	}
+	return (0);
+}
 
 int	ft_redir(t_token **current_tok, t_token *head_tok,
 		t_cmd **current_cmd, t_cmd *head_cmd)
@@ -38,6 +57,10 @@ int	ft_redir(t_token **current_tok, t_token *head_tok,
 	}
 	return (0);
 }
+/*(*current_tok) = (*current_tok)->next->next; jeśli obecny token to redir,
+* a nastepny to słowo to od razu wskażnik przeskakuje o dwie pozycje,
+aby pominąć redir i słowo.
+*current_tok jest w nawiasie bo -> jest waźniejsze niż * bez nawiasu*/
 
 t_cmd	*ft_commands(t_token *tokens)
 {
@@ -57,10 +80,10 @@ t_cmd	*ft_commands(t_token *tokens)
 	{
 		if (ft_redir(&current_tok, tokens, &current_cmd, commands) == -1)
 			return (NULL);
-		/*if (ft_command(&current_tok, tokens, &current_cmd, commands) == -1)
+		if (ft_command(&current_tok, tokens, &current_cmd, commands) == -1)
 			return (NULL);
 		if (ft_pipe(&current_tok, tokens, &current_cmd, commands) == -1)
-			return (NULL);*/
+			return (NULL);
 	}
 	if (!tokens)
 		return (NULL);
