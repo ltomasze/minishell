@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/22 18:17:22 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/23 18:58:03 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ typedef struct s_token
 /* errors */
 # define MANY_ARGS_ERR "Error: minishell does not accept arguments"
 # define NO_ENVP_ERR "Error: no environment found"
-#define MISS_QUOTE_ERR "Syntax error: missing quote"
-#define MISS_CMD_ERR "Syntax error: missing command"
-#define SANITATION_ERR "Error: line sanitation error"
+# define MISS_QUOTE_ERR "Syntax error: missing quote"
+# define MISS_CMD_ERR "Syntax error: missing command"
+# define SANITATION_ERR "Error: line sanitation error"
 # define NULL_REDIR "Error: ambiguous redirect"
 # define REDIR_TO_OPR "Syntax error: redirection followed by unexpected token"
+# define NUM_REQ_ERR "Exit error: numeric argument required"
 
 /* Standard file descriptors.  */
 #define	STDIN_FILENO	0	/* Standard input.  */
@@ -101,6 +102,7 @@ void	ft_putstr_fd(char *s, int fd);
 int	ft_isspace(char c);
 int	ft_isalnum(int c);
 int	ft_isalpha(int c);
+int	ft_isdigit(int c);
 
 //envp
 void	free_envp(t_envp *head);
@@ -169,5 +171,9 @@ void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev);
 int	ft_check_tokens(t_token **tokens);
 //utils
 int	ft_check_access(char *file, int type);
+//builtins
+void	exit_bltin(t_data *data);
+//main
+void	free_resources(t_data *data);
 
 #endif

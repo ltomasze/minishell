@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/05 12:44:59 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/23 18:05:48 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@ void	free_resources(t_data *data)
 	}
 	free_envp(data->envp);
 	data->envp = NULL;
+}
+
+void	check_for_builtins(t_data *data)
+{
+	if (data->cmd->next != NULL || !data->cmd->cmd)
+		return ;
+	if (data->cmd->cmd && ft_strncmp(data->cmd->cmd[0],
+			"exit", 5) == 0)
+		exit_bltin(data);
+	/*else if (ft_strncmp(data->cmd->cmd[0],
+			"export", ft_strlen(data->cmd->cmd[0])) == 0)
+		data->cmd_exit_status = export_bltin(data->cmd->cmd, data);
+	else if (ft_strncmp(data->cmd->cmd[0],
+			"unset", ft_strlen(data->cmd->cmd[0])) == 0)
+		data->cmd_exit_status = unset_bltin(data->cmd->cmd, data);
+	else if (ft_strncmp(data->cmd->cmd[0],
+			"cd", ft_strlen(data->cmd->cmd[0])) == 0)
+		data->cmd_exit_status = cd_bltin(data->cmd->cmd, data);*/
 }
 
 int	read_line(t_data *data)
@@ -89,8 +107,10 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (ft_cmds_creation(&data) == -1)
 			continue ;
+		check_for_builtins(&data);
+		ft_free_commands(&(data.cmd));
 	}
-
+	free_resources(&data);
 }
 
 /* if (read_line(&data))      // Wczytuje linię

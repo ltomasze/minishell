@@ -6,7 +6,7 @@
 #    By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:44:33 by ltomasze          #+#    #+#              #
-#    Updated: 2025/01/22 13:36:35 by ltomasze         ###   ########.fr        #
+#    Updated: 2025/01/23 18:09:17 by ltomasze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes -g
 SRCS = src/main.c src/libft.c src/envp.c src/signals.c src/free.c src/check.c \
 src/error.c src/check1.c src/sanitation.c src/sanitation1.c src/cmds.c \
 src/tokenizer.c src/tokenizer1.c src/tokenizer2.c src/tokenizer3.c \
-src/check_tokens.c src/cmds1.c src/cmds_redir.c src/utils.c
+src/check_tokens.c src/cmds1.c src/cmds_redir.c src/utils.c src/builtins.c
 #OBJS = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
