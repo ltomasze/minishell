@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:20:20 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/23 18:15:59 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:54:44 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,4 +267,49 @@ int	ft_isdigit(int c)
 	if (c >= 48 && c <= 57)
 		return (2048);
 	return (0);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*s3;
+
+	i = 0;
+	j = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	s3 = (char *)malloc(sizeof(char) *(ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (s3 == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		s3[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		s3[i] = s2[j];
+		i++;
+		j++;
+	}
+	s3[i] = '\0';
+	return (s3);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	str = (char *)malloc(nmemb * size);
+	if (str == 0)
+		return (0);
+	while (i < nmemb * size)
+	{
+		str[i] = 0;
+		i++;
+	}
+	return ((void *)str);
 }

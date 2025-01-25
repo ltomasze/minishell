@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 17:28:49 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:55:15 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 typedef struct s_envp
 {
@@ -54,6 +55,8 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+# define BUFFER_SIZE 10
+
 /*tokens*/
 # define T_OUT_REDIR	1 
 # define T_IN_REDIR		2
@@ -72,6 +75,10 @@ typedef struct s_token
 # define NULL_REDIR "Error: ambiguous redirect"
 # define REDIR_TO_OPR "Syntax error: redirection followed by unexpected token"
 # define NUM_REQ_ERR "Exit error: numeric argument required"
+# define HEREDOC_ERR "Error: heredoc malfunction"
+# define NO_PERM_ERR "Error: permission denied"
+# define NO_CMD_ERR "Error: command not found"
+# define NO_FNAME_ARG_ERR "Error: filename argument required"
 
 /* Standard file descriptors.  */
 #define	STDIN_FILENO	0	/* Standard input.  */
@@ -103,7 +110,10 @@ int	ft_isspace(char c);
 int	ft_isalnum(int c);
 int	ft_isalpha(int c);
 int	ft_isdigit(int c);
-
+char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_calloc(size_t nmemb, size_t size);
+//libft1
+char	**ft_split(char const *s, char c);
 //envp
 int	append_envp_node(t_envp **head, char *str);
 void	free_envp(t_envp *head);
@@ -111,9 +121,11 @@ t_envp	*fetch_envp_node(t_envp *head, char *key);
 void increment_shlvl(t_envp *head);
 t_envp *fetch_envp (char **envp);
 //envp1
+char	**convert_envp_llist_to_array(t_envp *head);
 t_envp	*fetch_node_before(t_envp **head, char *key);
 void	remove_envp_node(t_envp *prev_node);
 //signals
+void	set_signals_to_default(void);
 void handle_sigint(int sig);
 void	handle_signals(void);
 //free
@@ -178,12 +190,31 @@ int	ft_check_access(char *file, int type);
 //builtins_exit
 void	exit_bltin(t_data *data);
 //builtins_export
+int	ft_print_env_var(t_data *data);
 int	export_bltin(char **cmd, t_data *data);
 //builtins_unset
 int	unset_bltin(char **cmd, t_data *data);
 void	ft_remove_head_node(t_envp **head);
 //builtins_cd
 int	cd_bltin(char **cmd, t_data *data);
+//execute
+void	recursive_pipeline(int input_fd, t_data *data, t_cmd *cmd_node);
+void	execute_cmds(t_data *data);
+//execute01
+char	*find_cmd_path(t_envp *envp, char *cmd, int *status);
+void	set_exit_status(int *cmd_exit_status, int status);
+//fd_handlers
+int	get_heredoc(t_cmd *cmd);
+void	duplicate_fds(int input_fd, int output_fd);
+int	update_input_fd(t_cmd *cmd, int input_fd);
+int	get_output_fd(t_cmd *cmd, int *fd_pipe);
+//check_built_and_exec
+void	pwd_bltin(void);
+void	echo_bltin(char **cmd);
+void	env_bltin(t_data *data);
+int	check_for_builtin_and_execute(char **cmd, t_data *data);
+//get_next_line
+char	*get_next_line(int fd);
 //main
 void	free_resources(t_data *data);
 

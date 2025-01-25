@@ -6,11 +6,17 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:48:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2024/12/27 15:50:31 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:02:58 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	set_signals_to_default(void)
+{
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+}
 
 void handle_sigint(int sig)
 {

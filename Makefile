@@ -6,7 +6,7 @@
 #    By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:44:33 by ltomasze          #+#    #+#              #
-#    Updated: 2025/01/25 17:28:04 by ltomasze         ###   ########.fr        #
+#    Updated: 2025/01/25 19:53:45 by ltomasze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCS = src/main.c src/libft.c src/envp.c src/signals.c src/free.c src/check.c \
 src/error.c src/check1.c src/sanitation.c src/sanitation1.c src/cmds.c \
 src/tokenizer.c src/tokenizer1.c src/tokenizer2.c src/tokenizer3.c \
 src/check_tokens.c src/cmds1.c src/cmds_redir.c src/utils.c src/builtins_exit.c \
-src/builtins_export.c src/builtins_unset.c src/envp1.c src/buitins_cd.c
+src/builtins_export.c src/builtins_unset.c src/envp1.c src/builtins_cd.c \
+src/execute.c src/execute1.c src/fd_handlers.c src/check_built_and_exec.c \
+src/libft1.c src/get_next_line.c
 #OBJS = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

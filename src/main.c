@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 17:22:21 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:47:12 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_cmds_creation(&data) == -1)
 			continue ;
 		check_for_builtins(&data);
+		execute_cmds(&data);
 		ft_free_commands(&(data.cmd));
 	}
 	free_resources(&data);

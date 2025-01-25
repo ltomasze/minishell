@@ -6,11 +6,26 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 14:00:43 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/25 15:28:22 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:28:54 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_print_env_var(t_data *data)
+{
+	t_envp	*envp;
+
+	if (data->cmd->cmd[1])
+		exit(data->cmd_exit_status);
+	envp = data->envp;
+	while (envp)
+	{
+		printf("declare -x %s\n", envp->value);
+		envp = envp->next;
+	}
+	exit (0);
+}
 
 static int	ft_change_env(char *var, int j, t_data *data)
 {
