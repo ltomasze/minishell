@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 14:10:48 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 16:30:36 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ void	free_envp(t_envp *head);
 t_envp	*fetch_envp_node(t_envp *head, char *key);
 void increment_shlvl(t_envp *head);
 t_envp *fetch_envp (char **envp);
+//envp1
+t_envp	*fetch_node_before(t_envp **head, char *key);
+void	remove_envp_node(t_envp *prev_node);
 //signals
 void handle_sigint(int sig);
 void	handle_signals(void);
@@ -176,6 +179,9 @@ int	ft_check_access(char *file, int type);
 void	exit_bltin(t_data *data);
 //builtins_export
 int	export_bltin(char **cmd, t_data *data);
+//builtins_unset
+int	unset_bltin(char **cmd, t_data *data);
+void	ft_remove_head_node(t_envp **head);
 //main
 void	free_resources(t_data *data);
 
