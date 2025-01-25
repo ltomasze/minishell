@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:20:40 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/25 16:24:22 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:08:23 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,13 @@ int	unset_bltin(char **cmd, t_data *data)
 	}
 	return (0);
 }
+/*do usuwania zmiennych środowiskowych*/
+/*if (!ft_strncmp(name, data->envp->value, j)
+			&& data->envp->value[j] == '=')
+upewniamy się że zmienna do usunięcia to PATH a nie PATH=
+lub PATH=/usr/bin czyli cała zmienna środowiskowa
+			ft_remove_head_node(&(data->envp));
+jeśli zmienna do usunięcia  znajduje się na początku listy
+to używamy tej funkcji*/
+/*remove_envp_node(fetch_node_before(&data->envp, name))
+funkcja do usuwania zmiennej ze środka listy lub końca*/
