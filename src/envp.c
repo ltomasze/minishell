@@ -6,12 +6,34 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:38:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/18 17:15:18 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:11:22 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	append_envp_node(t_envp **head, char *str)
+{
+	t_envp	*node;
+	t_envp	*new_node;
+
+	node = *head;
+	while (*head && node->next != NULL)
+		node = node->next;
+	new_node = malloc(sizeof(t_envp));
+	if (!new_node)
+	{
+		perror("append_envp_node");
+		return (-1);
+	}
+	new_node->next = NULL;
+	new_node->value = str;
+	if (node)
+		node->next = new_node;
+	else
+		node = new_node;
+	return (0);
+}
 /*
  * Funkcja `free_envp` zwalnia pamięć wszystkich węzłów listy połączonej `t_envp`.
  */

@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 13:54:28 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:00:02 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	check_for_builtins(t_data *data)
 	if (data->cmd->cmd && ft_strncmp(data->cmd->cmd[0],
 			"exit", 5) == 0)
 		exit_bltin(data);
-	/*else if (ft_strncmp(data->cmd->cmd[0],
+	else if (ft_strncmp(data->cmd->cmd[0],
 			"export", ft_strlen(data->cmd->cmd[0])) == 0)
-		data->cmd_exit_status = export_bltin(data->cmd->cmd, data);
+		data->cmd_exit_status = export_bltin(data->cmd->cmd, data);/*
 	else if (ft_strncmp(data->cmd->cmd[0],
 			"unset", ft_strlen(data->cmd->cmd[0])) == 0)
 		data->cmd_exit_status = unset_bltin(data->cmd->cmd, data);

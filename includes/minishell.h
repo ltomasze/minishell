@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 13:53:37 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 14:10:48 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_isalpha(int c);
 int	ft_isdigit(int c);
 
 //envp
+int	append_envp_node(t_envp **head, char *str);
 void	free_envp(t_envp *head);
 t_envp	*fetch_envp_node(t_envp *head, char *key);
 void increment_shlvl(t_envp *head);
@@ -173,6 +174,8 @@ int	ft_check_tokens(t_token **tokens);
 int	ft_check_access(char *file, int type);
 //builtins_exit
 void	exit_bltin(t_data *data);
+//builtins_export
+int	export_bltin(char **cmd, t_data *data);
 //main
 void	free_resources(t_data *data);
 
