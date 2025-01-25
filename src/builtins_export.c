@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 14:00:43 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/25 14:05:06 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:28:22 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ static int	ft_change_env(char *var, int j, t_data *data)
 	node->value = dup_var;
 	return (0);
 }
+/*node = fetch_envp_node(data->envp, var_name); wyszukuje w liście zmiennych
+środowiskowych  podanej zmiennej zmiennej, jeśli zmienna zostanie znaleziona
+funkcja zwróci węzeł(node) do tej zmiennej
+append_envp_node jęśli zmienna środowiskowa nie istnieje funkcja dodaje nową
+zmienna na koniec listy
+free(node->value);
+node->value = dup_var; natomiast jężeli zmienna istniała to nadpisujemy jej
+wartość np. jeśli był USER=John, a teraz mamy USER=Doe to będzie zmiana 
+tej zmiennej*/
 
 int	export_bltin(char **cmd, t_data *data)
 {
@@ -66,3 +75,7 @@ int	export_bltin(char **cmd, t_data *data)
 	}
 	return (0);
 }
+/*funkcja do sprawdzenia czy eksportowana zmienna istniej w programie
+jeżeli nie to ją dodaje, ponadto sprawdza zmienna zaczyna się od 
+litery i czy pozostałe znaki to liczby lub litery oraz czy zmienna
+kończy się na = czesto zmienna to var bo to variable*/

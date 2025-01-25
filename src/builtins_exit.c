@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtins_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 18:07:34 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/25 13:52:41 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:34:56 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,10 @@ void	exit_bltin(t_data *data)
 	exit(exit_status);
 }
 /*funkcja do sprawdzenia przypadku gdy jest wyjście przez exit z liczbą
-lub też z błędnym argumentem*/
+lub też z błędnym argumentem
+0: Sukces.
+1: Ogólny błąd.
+2: Błąd w składni lub nieprawidłowe argumenty.
+126: Polecenie nie może zostać wykonane.
+127: Polecenie nie znalezione.
+128+N: Proces zakończony sygnałem N.*/

@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:38:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/25 14:11:22 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:31:54 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	append_envp_node(t_envp **head, char *str)
 		node = new_node;
 	return (0);
 }
+/*append_envp_node funkcja do dodania nowej zmiennej na koniec listy*/
 /*
  * Funkcja `free_envp` zwalnia pamięć wszystkich węzłów listy połączonej `t_envp`.
  */
