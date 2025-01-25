@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 16:30:36 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:28:49 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ int	export_bltin(char **cmd, t_data *data);
 //builtins_unset
 int	unset_bltin(char **cmd, t_data *data);
 void	ft_remove_head_node(t_envp **head);
+//builtins_cd
+int	cd_bltin(char **cmd, t_data *data);
 //main
 void	free_resources(t_data *data);
 
