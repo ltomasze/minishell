@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/23 18:05:48 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:54:28 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	check_for_builtins(t_data *data)
 			"cd", ft_strlen(data->cmd->cmd[0])) == 0)
 		data->cmd_exit_status = cd_bltin(data->cmd->cmd, data);*/
 }
+/*if (data->cmd->cmd... czy komenda wogóle istnieje*/
 
 int	read_line(t_data *data)
 {

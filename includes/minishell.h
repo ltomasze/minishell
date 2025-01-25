@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 18:19:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/23 18:58:03 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 13:53:37 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev);
 int	ft_check_tokens(t_token **tokens);
 //utils
 int	ft_check_access(char *file, int type);
-//builtins
+//builtins_exit
 void	exit_bltin(t_data *data);
 //main
 void	free_resources(t_data *data);
