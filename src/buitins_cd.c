@@ -6,7 +6,7 @@
 /*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 17:23:11 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/25 17:27:33 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:33:46 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	ft_cd_env_change(t_data *data, char *var, char *res)
 		remove_envp_node(fetch_node_before(&data->envp, var));
 	return (0);
 }
+/*usuwa zmienną środowiskową z listy*/
 
 static int	ft_change_value(char *var, char *res, t_data *data)
 {
@@ -56,6 +57,9 @@ static int	ft_change_value(char *var, char *res, t_data *data)
 	node->value = str;
 	return (0);
 }
+/*funkcja do zmiany wartości zmiennej środowiskowej, jesli używamy
+polecenia cd /.. itp to zmienia się pwd i w ten sposób ją
+aktualizujemy*/
 
 static int	cd_handler(char *str, t_data *data)
 {
@@ -78,6 +82,8 @@ static int	cd_handler(char *str, t_data *data)
 		return (-1);
 	return (0);
 }
+
+/*funkcja chdir zmienia katalog roboczy na podany w ścieżce*/
 
 static int	ft_cd_home(t_data *data, t_envp *home)
 {
@@ -107,6 +113,16 @@ static int	ft_cd_home(t_data *data, t_envp *home)
 		return (1);
 	return (0);
 }
+/*PWD (current working directory) aktualny katalog roboczy i 
+OLDPWD (previous working directory) poprzedni.
+getcwd funkcja do ustalania aktualnej ścieżki ustalona na 4096
+curr[4096] to 4kb tablica do przechowywania ścieżki taka wielkość tablicy jest w linux
+chdir funkja do zmiany katalogu roboczego na domowy 
+home->value[5] bo ścieżka do katalogu HOME to HOME= a nas interesuje wskazanie
+po tym katalogu
+ft_change_value zmienia wartość zmiennej środowiskowej PWD na aktualny
+
+*/
 
 int	cd_bltin(char **cmd, t_data *data)
 {
@@ -123,3 +139,6 @@ int	cd_bltin(char **cmd, t_data *data)
 		return (1);
 	return (0);
 }
+
+/*ft_cd_home funkcja do używania przy wpisaniu komendy tylko cd czyli
+zmienia na katalog domowy home*/
