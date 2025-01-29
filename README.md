@@ -1,3 +1,4 @@
+valgrind --suppressions=readline.supp ./minishell
 
 42 Warsaw Minishell project <br><br>
 
