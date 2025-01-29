@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 12:00:29 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/09 17:30:01 by ltomasze         ###   ########.fr       */
+/*   Created: 2024/12/28 15:24:26 by mbany             #+#    #+#             */
+/*   Updated: 2025/01/25 16:59:04 by mbany            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,16 @@ int	ft_perror_message(void)
 	perror(NULL);
 	return (-1);
 }
-/* perror wypisuje standardowe komunikaty w zalezności od wartości errno
-np na mallocku otrzymujac wartość null wypisze "Cannot allocate memory"
-p.s. null w nawiasie to nie wynik tylko że poza standardowym odpowiedzią ma
-nic więcej nie dopisać, gdyby np. było perror(Error) to bedzie komunikat
-Error: Cannot allocate memory */
+
+/*
+Funkcja `ft_perror_free` wypisuje komunikat 
+o błędzie za pomocą `ft_perror_message`, 
+a następnie zwalnia pamięć wskazywaną 
+przez wskaźniki `first`, `second` i `third`, 
+jeśli nie są one puste. Na końcu zwraca `-1`, aby zasygnalizować błąd. 
+Funkcja służy do obsługi błędów i jednoczesnego czyszczenia 
+zaalokowanej pamięci, zapobiegając wyciekom.
+*/
 int	ft_perror_free(char *first, char *second, char *third)
 {
 	ft_perror_message();
@@ -46,9 +51,3 @@ int	ft_perror_free(char *first, char *second, char *third)
 		free(third);
 	return (-1);
 }
-
-/*ft_putstr_fd(str, 2);
-
-Wywołuje funkcję ft_putstr_fd, która wypisuje ciąg znaków str do określonego deskryptora pliku.
-Deskryptor 2 oznacza standardowe wyjście błędu (stderr).
-Przykład: Jeśli str to "Error: invalid syntax", funkcja wypisze to na stderr.*/

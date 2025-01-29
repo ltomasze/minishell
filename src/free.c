@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:33:56 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/19 16:53:50 by ltomasze         ###   ########.fr       */
+/*   Updated: 2025/01/25 16:54:02 by mbany            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_free_tokens(t_token **tokens)
-{
-	t_token	*temp;
-
-	if (!tokens || !*tokens)
-		return ;
-	while (*tokens)
-	{
-		temp = *tokens;
-		*tokens = (*tokens)->next;
-		if (temp->text)
-			free(temp->text);
-		free(temp);
-	}
-	*tokens = NULL;
-}
-/* przekaż token do temp i przesuń się do następnego tokena, gdy wszystkie tokeny
-przejdą do  temp, wyczyść temp*/
 
 void	free_ft_split(char **split)
 {
@@ -65,15 +46,20 @@ void	ft_free_commands(t_cmd **commands)
 }
 
 /*
-Funkcja ft_free_commands jest odpowiedzialna za zwolnienie pamięci związanej z listą poleceń (t_cmd), w tym:
-
+Funkcja ft_free_commands jest odpowiedzialna 
+za zwolnienie pamięci związanej z listą poleceń (t_cmd), w tym:
 Zwalnia wszystkie tablice argumentów cmd.
 Zwalnia pamięć przypisaną do plików wejściowych (infile) i wyjściowych (outfile).
 Iteruje po całej liście poleceń i zwalnia pamięć przypisaną do każdego elementu.
-Jest to istotna funkcja w zarządzaniu pamięcią w programie, ponieważ pozwala uniknąć wycieków pamięci poprzez zapewnienie, 
-że wszystkie elementy struktury są odpowiednio zwolnione po zakończeniu ich użycia.
-Pokażmy przykład, jak funkcja ft_free_commands działa na rzeczywistej liście poleceń (t_cmd), zakładając, 
-że mamy kilka poleceń w minishellu. Załóżmy, że w programie mamy dwa polecenia: jedno z plikiem wejściowym i wyjściowym, 
+Jest to istotna funkcja w zarządzaniu pamięcią w programie, 
+ponieważ pozwala uniknąć wycieków pamięci poprzez zapewnienie, 
+że wszystkie elementy struktury są odpowiednio zwolnione 
+po zakończeniu ich użycia.
+Pokażmy przykład, jak funkcja ft_free_commands działa 
+na rzeczywistej liście poleceń (t_cmd), zakładając, 
+że mamy kilka poleceń w minishellu. 
+Załóżmy, że w programie mamy dwa polecenia: 
+jedno z plikiem wejściowym i wyjściowym, 
 a drugie z argumentami.
 
 Przykład listy poleceń t_cmd
@@ -119,14 +105,16 @@ Trzecie polecenie (cmd3):
 
 Komenda: grep error
 Przykład działania funkcji ft_free_commands
-Załóżmy, że chcemy zwolnić całą pamięć, która została przydzielona dla tej listy poleceń,
+Załóżmy, że chcemy zwolnić całą pamięć, 
+która została przydzielona dla tej listy poleceń,
  wywołując funkcję ft_free_commands(&cmd1).
 
 Co się wydarzy w funkcji ft_free_commands?
 Sprawdzanie, czy lista nie jest pusta:
 
 Jeśli lista nie jest pusta, przechodzimy do kolejnych kroków.
-Iterowanie przez listę poleceń: Pętla while (*commands) iteruje przez wszystkie elementy w liście,
+Iterowanie przez listę poleceń: 
+Pętla while (*commands) iteruje przez wszystkie elementy w liście,
  aż do momentu, gdy napotka NULL.
 
 Pierwsza iteracja (cmd1):
@@ -136,19 +124,23 @@ Sprawdzamy, czy są przypisane pliki infile i outfile:
 Zwalniamy pamięć dla infile (input.txt).
 Zwalniamy pamięć dla outfile (output.txt).
 Zwalniamy pamięć dla cmd (tablica: ["ls", "-l", NULL]) za pomocą free_ft_split.
-Przechodzimy do następnego elementu listy: *commands = (*commands)->next (czyli cmd2).
+Przechodzimy do następnego elementu listy: 
+*commands = (*commands)->next (czyli cmd2).
 Druga iteracja (cmd2):
 
 temp = *commands przypisuje wskaźnik do cmd2.
 Zwalniamy pamięć dla outfile (output2.txt).
 Zwalniamy pamięć dla cmd (tablica: ["cat", NULL]) za pomocą free_ft_split.
-Przechodzimy do następnego elementu listy: *commands = (*commands)->next (czyli cmd3).
+Przechodzimy do następnego elementu listy: 
+*commands = (*commands)->next (czyli cmd3).
 Trzecia iteracja (cmd3):
 
 temp = *commands przypisuje wskaźnik do cmd3.
-Zwalniamy pamięć dla cmd (tablica: ["grep", "error", NULL]) za pomocą free_ft_split.
+Zwalniamy pamięć dla cmd (tablica: 
+["grep", "error", NULL]) za pomocą free_ft_split.
 Przechodzimy do końca listy: *commands = (*commands)->next (czyli NULL).
-Zwalnianie pamięci dla samych struktur t_cmd: Po zwolnieniu wszystkich pól w strukturach (argumentów, 
+Zwalnianie pamięci dla samych struktur t_cmd: 
+Po zwolnieniu wszystkich pól w strukturach (argumentów, 
 plików wejściowych i wyjściowych), zwalniamy pamięć, 
 która została przydzielona na same struktury t_cmd za pomocą free(temp).
 
@@ -160,32 +152,40 @@ Zostaną zwolnione następujące zasoby:
 Pamięć dla pliku wejściowego i wyjściowego każdego polecenia.
 Pamięć dla argumentów (tablicy cmd) każdego polecenia.
 Pamięć przydzielona na same struktury t_cmd.
-Lista poleceń zostanie całkowicie zwolniona, a wskaźnik cmd1 będzie wskazywał na NULL.
+Lista poleceń zostanie całkowicie zwolniona, 
+a wskaźnik cmd1 będzie wskazywał na NULL.
 
 Wizualizacja procesu:
 Przed zwolnieniem pamięci:
 
-cmd1 -> [cmd = ["ls", "-l", NULL], infile = "input.txt", outfile = "output.txt", next = cmd2]
-cmd2 -> [cmd = ["cat", NULL], infile = NULL, outfile = "output2.txt", next = cmd3]
-cmd3 -> [cmd = ["grep", "error", NULL], infile = NULL, outfile = NULL, next = NULL]
+cmd1 -> [cmd = ["ls", "-l", NULL], infile = "input.txt", 
+	outfile = "output.txt", next = cmd2]
+cmd2 -> [cmd = ["cat", NULL], infile = NULL, 
+	outfile = "output2.txt", next = cmd3]
+cmd3 -> [cmd = ["grep", "error", NULL], 
+	infile = NULL, outfile = NULL, next = NULL]
 Po zwolnieniu pamięci:
 
 cmd1 -> NULL
 cmd2 -> NULL
 cmd3 -> NULL
-Cała pamięć została zwolniona, a wskaźniki do kolejnych poleceń w liście zostały ustawione na NULL, 
+Cała pamięć została zwolniona, 
+a wskaźniki do kolejnych poleceń w liście zostały ustawione na NULL, 
 więc nie ma już żadnej aktywnej pamięci związanej z listą poleceń.
 
 
-Funkcja free_ft_split służy do zwolnienia pamięci przydzielonej dla tablicy wskaźników (char **split), 
+Funkcja free_ft_split służy do zwolnienia pamięci przydzielonej 
+dla tablicy wskaźników (char **split), 
 która zawiera łańcuchy znaków (np. wynik działania funkcji ft_split).
-Zwalnia ona zarówno pojedyncze łańcuchy znaków (np. "ls", "-l", "/home/user") oraz
+Zwalnia ona zarówno pojedyncze łańcuchy znaków 
+(np. "ls", "-l", "/home/user") oraz
  samą tablicę wskaźników.Funkcja działa w następujący sposób:
 
 orig_split = split: Kopiujemy wskaźnik split do zmiennej orig_split, 
 aby później zwolnić pamięć dla całej tablicy wskaźników.
 while (*split != NULL): Pętla iteruje przez wszystkie elementy tablicy. 
-Dla każdego elementu wywołuje funkcję free, aby zwolnić pamięć przypisaną do poszczególnych łańcuchów znaków.
+Dla każdego elementu wywołuje funkcję free, 
+aby zwolnić pamięć przypisaną do poszczególnych łańcuchów znaków.
 free(orig_split): Po zwolnieniu pamięci dla każdego łańcucha w tablicy 
 zwalniamy pamięć zajmowaną przez samą tablicę (wskaźniki).
 */

@@ -3,37 +3,68 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:44:33 by ltomasze          #+#    #+#              #
-#    Updated: 2025/01/25 19:53:45 by ltomasze         ###   ########.fr        #
+#    Updated: 2025/01/26 11:24:52 by mbany            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -g
-SRCS = src/main.c src/libft.c src/envp.c src/signals.c src/free.c src/check.c \
-src/error.c src/check1.c src/sanitation.c src/sanitation1.c src/cmds.c \
-src/tokenizer.c src/tokenizer1.c src/tokenizer2.c src/tokenizer3.c \
-src/check_tokens.c src/cmds1.c src/cmds_redir.c src/utils.c src/builtins_exit.c \
-src/builtins_export.c src/builtins_unset.c src/envp1.c src/builtins_cd.c \
-src/execute.c src/execute1.c src/fd_handlers.c src/check_built_and_exec.c \
-src/libft1.c src/get_next_line.c
-#OBJS = $(SRCS:.c=.o)
+
+# Source files
+SRCS = src/main.c \
+src/libft00.c \
+src/libft01.c \
+src/libft02.c \
+src/libft03.c \
+src/envp00.c \
+src/envp01.c \
+src/signals.c \
+src/free.c \
+src/check_syntax00.c \
+src/check_syntax01.c \
+src/error.c \
+src/utils.c \
+src/sanitize00.c \
+src/sanitize01.c \
+src/commands00.c \
+src/commands01.c \
+src/tokens.c \
+src/tokens00.c \
+src/tokens01.c \
+src/clean_tokens.c \
+src/dollar.c \
+src/token_satinization.c \
+src/cmd_redir.c \
+src/builtin.c \
+src/builtin_pwd.c \
+src/builtin_export.c \
+src/builtin_unset.c \
+src/builtin_cd.c \
+src/execute00.c \
+src/execute01.c \
+src/execute02.c \
+src/file_descriptor_handlers.c \
+src/builtin_echo.c \
+src/get_next_line.c
+
+# Object files
 OBJ_DIR = obj
-OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS)  $(OBJS) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
 
-$(OBJ_DIR)/%.o: %.c | prepare_dirs
+$(OBJ_DIR)/%.o: src/%.c | prepare_dirs
 	$(CC) $(CFLAGS) -c $< -o $@
 
 prepare_dirs:
-	mkdir -p $(OBJ_DIR)/src
+	mkdir -p $(OBJ_DIR)
 
 clean:
 	rm -rf $(OBJ_DIR)
@@ -42,3 +73,4 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
