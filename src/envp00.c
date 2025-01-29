@@ -57,6 +57,7 @@ t_envp	*fetch_envp_node(t_envp *head, char *key)
  * Funkcja `increment_shlvl` zwiększa wartość zmiennej środowiskowej `SHLVL`.
  * `SHLVL` odpowiada liczbie razy, kiedy uruchomiono powłokę w tej samej sesji.
  */
+ 
 void	increment_shlvl(t_envp *head)
 {
 	t_envp	*node;
@@ -71,6 +72,7 @@ void	increment_shlvl(t_envp *head)
 	if (!shlvl)
 		perror("ft_itoa");
 	free(node->value);
+	node->value = ft_strjoin("SHLVL=", shlvl);
 	if (!node->value)
 		perror("ft_strjoin");
 	free(shlvl);
