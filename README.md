@@ -1,138 +1,72 @@
-Minishell <br>
-A minimal UNIX shell implementation for 42 School
+Minishell <br> A minimal UNIX shell implementation for 42 School <br><br>
 
-Overview
-Minishell is a simplified UNIX shell developed as part of the 42 School curriculum. It aims to replicate basic shell functionalities, including command execution, input/output redirection, and pipelines.
+Overview <br> Minishell is a simplified UNIX shell developed as part of the 42 School curriculum. It aims to replicate basic shell functionalities, including command execution, input/output redirection, and pipelines. <br><br>
 
-Features
-✅ Command execution with absolute or relative paths
-✅ Built-in cd command with error handling
-✅ Support for multiple commands separated by ;
-✅ Piping (|) to connect commands
-✅ Process management with fork, execve, waitpid
-✅ File descriptor management with dup2 and pipe
-✅ Robust error handling
+Features <br> ✅ Command execution with absolute or relative paths <br> ✅ Built-in cd command with error handling <br> ✅ Support for multiple commands separated by ; <br> ✅ Piping (|) to connect commands <br> ✅ Process management with fork, execve, waitpid <br> ✅ File descriptor management with dup2 and pipe <br> ✅ Robust error handling <br><br>
 
-Installation & Usage
-Compile using Makefile: make
+Installation & Usage <br> Compile using Makefile: make <br>
 
-This will generate the minishell executable.
+This will generate the minishell executable. <br>
 
-Run minishell: ./minishell
+Run minishell: ./minishell <br>
 
-Then, you can enter commands like:
-echo Hello World
-ls -l | grep minishell
-cd /tmp; pwd
+Then, you can enter commands like: <br> echo Hello World <br> ls -l | grep minishell <br> cd /tmp; pwd <br><br>
 
-Allowed Functions
-malloc, free, write, close, fork, waitpid, signal, kill, exit, chdir, execve, dup, dup2, pipe, strcmp, strncmp
+Allowed Functions <br> malloc, free, write, close, fork, waitpid, signal, kill, exit, chdir, execve, dup, dup2, pipe, strcmp, strncmp <br><br>
 
-Error Handling
-Incorrect cd usage → "error: cd: bad arguments"
-cd failure → "error: cd: cannot change directory to path"
-System call failure (except execve and chdir) → "error: fatal"
-execve failure → "error: cannot execute command"
+Error Handling <br> Incorrect cd usage → "error: cd: bad arguments" <br> cd failure → "error: cd: cannot change directory to path" <br> System call failure (except execve and chdir) → "error: fatal" <br> execve failure → "error: cannot execute command" <br><br>
 
-Notes
-No wildcard expansion (*, ~, etc.)
-No environment variable expansion ($VAR)
-Command paths must be absolute or relative (no $PATH resolution)
+Notes <br> No wildcard expansion (*, ~, etc.) <br> No environment variable expansion ($VAR) <br> Command paths must be absolute or relative (no $PATH resolution) <br><br>
 
-Cleaning Up
-To remove compiled files: make clean
+Cleaning Up <br> To remove compiled files: make clean <br><br>
 
-Authors
-🛠 Developed as part of 42 School's curriculum.
+Authors <br> 🛠 Developed as part of 42 School's curriculum. <br><br>
 
+STEP BY STEP: <br><br>
 
+Step 1: Basic Structures and Project Initialization <br> ✅ Implement the t_data structure: <br>
 
+Contains a pointer to line (the current input line from the terminal). <br> Stores environment variables (envp) and other necessary data. <br> ✅ Write the init function: <br>
 
-STEP BY STEP:
+Initializes the t_data structure. <br> Copies environment variables into a custom format (e.g., a list or an array). <br> ✅ Implement the free_resources function: <br>
 
-Step 1: Basic Structures and Project Initialization
-✅ Implement the t_data structure:
+Frees memory allocated for the t_data structure. <br> At this stage, the program compiles, reads lines (without processing them), and exits correctly. <br><br>
 
-Contains a pointer to line (the current input line from the terminal).
-Stores environment variables (envp) and other necessary data.
-✅ Write the init function:
+Step 2: Signal Handling <br> ✅ Implement the handle_signals function: <br>
 
-Initializes the t_data structure.
-Copies environment variables into a custom format (e.g., a list or an array).
-✅ Implement the free_resources function:
+Handles Ctrl+C (SIGINT) to clear the input line instead of terminating the shell and displays a new prompt. <br> Ignores Ctrl+\ (SIGQUIT). <br> Integrates into the main loop where needed. <br> The program should now compile and correctly handle Ctrl+C and Ctrl+\ .<br><br>
 
-Frees memory allocated for the t_data structure.
-At this stage, the program compiles, reads lines (without processing them), and exits correctly.
+Step 3: Reading Input Lines <br> ✅ Implement the read_line function: <br>
 
-Step 2: Signal Handling
-✅ Implement the handle_signals function:
+Displays a prompt and reads input from the terminal (e.g., using readline). <br> Adds the line to history if it’s not empty. <br> Stores the input line in the t_data structure. <br> ✅ Handle empty input lines: <br>
 
-Handles Ctrl+C (SIGINT) to clear the input line instead of terminating the shell and displays a new prompt.
-Ignores Ctrl+\ (SIGQUIT).
-Integrates into the main loop where needed.
-The program should now compile and correctly handle Ctrl+C and Ctrl+\.
+If the line is empty, the loop should continue without additional actions. <br> At this stage, the program reads user input, adds it to history, and ignores empty lines. <br><br>
 
-Step 3: Reading Input Lines
-✅ Implement the read_line function:
+Step 4: Syntax Analysis and Validation (Parser) <br> ✅ Implement the check_syntax function: <br>
 
-Displays a prompt and reads input from the terminal (e.g., using readline).
-Adds the line to history if it’s not empty.
-Stores the input line in the t_data structure.
-✅ Handle empty input lines:
+Verifies input line correctness: <br> Ensures quotes (" and ') are properly closed. <br> Checks for valid metacharacters (e.g., avoids double ||, standalone &&, etc.). <br> ✅ If syntax is incorrect, the program displays an appropriate message and continues execution. <br> ✅ If syntax is valid, the line proceeds to the next processing step. <br><br>
 
-If the line is empty, the loop should continue without additional actions.
-At this stage, the program reads user input, adds it to history, and ignores empty lines.
+Step 5: Line Sanitization and Normalization <br> ✅ Implement the sanitize_line function: <br>
 
-Step 4: Syntax Analysis and Validation (Parser)
-✅ Implement the check_syntax function:
+Removes excess spaces and tab characters. <br> Replaces environment variables ($VAR) with their corresponding values. <br> Normalizes the line for easier processing. <br> At this stage, the program correctly reads and prepares lines for further execution. <br><br>
 
-Verifies input line correctness:
-Ensures quotes (" and ') are properly closed.
-Checks for valid metacharacters (e.g., avoids double ||, standalone &&, etc.).
-✅ If syntax is incorrect, the program displays an appropriate message and continues execution.
-✅ If syntax is valid, the line proceeds to the next processing step.
+Step 6: Command Creation <br> ✅ Implement the ft_cmds_creation function: <br>
 
-Step 5: Line Sanitization and Normalization
-✅ Implement the sanitize_line function:
+Splits the input line into commands and arguments (e.g., using ;, |, or redirection symbols). <br> Creates a structure representing commands (e.g., a linked list of commands with arguments). <br> ✅ Handle different types of metacharacters: <br>
 
-Removes excess spaces and tab characters.
-Replaces environment variables ($VAR) with their corresponding values.
-Normalizes the line for easier processing.
-At this stage, the program correctly reads and prepares lines for further execution.
+Redirections (<, >, <<, >>). <br> Pipelines (|). <br><br>
 
-Step 6: Command Creation
-✅ Implement the ft_cmds_creation function:
+Step 7: Executing Built-in Commands <br> ✅ Implement the check_for_builtins function to handle: <br>
 
-Splits the input line into commands and arguments (e.g., using ;, |, or redirection symbols).
-Creates a structure representing commands (e.g., a linked list of commands with arguments).
-✅ Handle different types of metacharacters:
+echo with the -n flag. <br> cd (both relative and absolute paths). <br> pwd (without arguments). <br> export, unset, env (basic implementations). <br> exit (without arguments). <br> At this stage, basic built-in commands should work correctly. <br><br>
 
-Redirections (<, >, <<, >>).
-Pipelines (|).
-Step 7: Executing Built-in Commands
-✅ Implement the check_for_builtins function to handle:
+Step 8: Executing External Commands <br> ✅ Implement the execute_cmds function: <br>
 
-echo with the -n flag.
-cd (both relative and absolute paths).
-pwd (without arguments).
-export, unset, env (basic implementations).
-exit (without arguments).
-At this stage, basic built-in commands should work correctly.
+Executes external commands (e.g., ls, cat). <br> Handles pipes (|) by creating child processes. <br> Supports input/output redirection (<, >). <br><br>
 
-Step 8: Executing External Commands
-✅ Implement the execute_cmds function:
+Step 9: Advanced Signal Handling <br> ✅ Improve signal handling: <br>
 
-Executes external commands (e.g., ls, cat).
-Handles pipes (|) by creating child processes.
-Supports input/output redirection (<, >).
-Step 9: Advanced Signal Handling
-✅ Improve signal handling:
+Adjust SIGINT and SIGQUIT behavior in child processes. <br> Ignore SIGQUIT in the main process. <br><br>
 
-Adjust SIGINT and SIGQUIT behavior in child processes.
-Ignore SIGQUIT in the main process.
+EXTRAS: <br> valgrind --suppressions=readline.supp ./minishell <br>
 
-
-
-
-EXTRAS:
-valgrind --suppressions=readline.supp ./minishell
