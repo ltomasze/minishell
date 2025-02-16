@@ -1,4 +1,4 @@
-Minishell
+Minishell <br>
 A minimal UNIX shell implementation for 42 School
 
 Overview
