@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens00.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:09:41 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/26 11:37:01 by mbany            ###   ########.fr       */
+/*   Updated: 2025/02/16 16:06:44 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 static int	ft_single_redirection(char x, t_token **tokens, char *str);
 
 /*
-Funkcja `ft_append_redir` sprawdza, 
-czy znak w `input[*i]` to znak `<` lub `>`, 
-a następnie przypisuje do zmiennej `str` odpowiednią wartość `"<<"` 
-lub `">>"`. Jeśli alokacja pamięci dla `str` nie powiedzie się, zwraca błąd. 
-Funkcja tworzy token dla typu `T_HEREDOC` 
-lub `T_APPEND` za pomocą funkcji `create_token`, 
-a następnie przesuwa indeks `*i` o 2. 
-Jeśli wystąpi błąd podczas tworzenia tokenu, zwraca `-1`. 
-Celem funkcji jest obsługa różnych rodzajów redirekcji (`<<` lub `>>`).
+The function ft_append_redir checks if the character at input[*i] is either < or >, 
+and then assigns the appropriate value "<<" or ">>" to the variable str. 
+If memory allocation for str fails, it returns an error. 
+The function creates a token of type T_HEREDOC or T_APPEND using the create_token function, 
+and then advances the index *i by 2. 
+If an error occurs while creating the token, it returns -1. 
+The purpose of this function is to handle different types of redirection (<< or >>).
 */
 static int	ft_append_redir(char *input, int *i, t_token **tokens, char *str)
 {
@@ -49,15 +47,14 @@ static int	ft_append_redir(char *input, int *i, t_token **tokens, char *str)
 }
 
 /*
-Funkcja `ft_is_redir` sprawdza, 
-czy znak w łańcuchu `input` pod indeksem `*i` to znak redirekcji (`<` lub `>`). 
-W przypadku podwójnego znaku redirekcji 
-(`<<` lub `>>`) wywołuje `ft_append_redir`, tworząc odpowiedni token. 
-W przypadku pojedynczej redirekcji tworzy token 
-za pomocą `ft_single_redirection` 
-i przesuwa indeks `*i`. W razie błędu zwraca `-1`, a w przeciwnym razie `0`, 
-pozwalając kontynuować analizę tokenów. Funkcja identyfikuje redirekcje 
-i dodaje je do listy tokenów.
+The function ft_is_redir checks if the character in the input string at index *i 
+is a redirection character (< or >). 
+In the case of a double redirection character (<< or >>), 
+it calls ft_append_redir to create the appropriate token. 
+For single redirection characters, it creates a token using ft_single_redirection 
+and advances the index *i. In case of an error, it returns -1; otherwise, 
+it returns 0, allowing the token analysis to continue. 
+The function identifies redirections and adds them to the token list.
 */
 int	ft_is_redir(char *input, int *i, t_token **tokens)
 {
@@ -83,19 +80,16 @@ int	ft_is_redir(char *input, int *i, t_token **tokens)
 }
 
 /*
-Funkcja `ft_is_pipe` sprawdza, 
-czy w danym miejscu ciągu wejściowego `input` 
-(indeks wskazany przez `*i`) znajduje się znak `|`. 
-Jeśli tak, kopiuje ten znak do nowo utworzonego ciągu `str` 
-za pomocą `ft_strdup`, a następnie tworzy nowy token typu `T_PIPE`, 
-przekazując go do listy tokenów za pomocą `create_token`. 
-W przypadku błędów (np. brak pamięci podczas tworzenia `str` 
-lub niepowodzenie w `create_token`), 
-funkcja obsługuje błąd przez zwrócenie odpowiedniej wartości (`-1`). 
-Gdy token zostanie utworzony pomyślnie, 
-funkcja zwiększa indeks `*i` (pomija przetworzony znak w `input`) 
-i zwraca `0`. Funkcja działa, 
-by identyfikować znaki `|` jako operator rurociągu w procesie tokenizacji.
+The function ft_is_pipe checks if the character at the given position 
+in the input string (input) (index indicated by *i) is the | character. 
+If so, it copies this character into a newly created string str using ft_strdup, 
+and then creates a new token of type T_PIPE, passing it to the token list 
+using create_token. In case of errors (e.g., memory allocation failure 
+when creating str or failure in create_token), the function handles the error 
+by returning the appropriate value (-1). When the token is created successfully, 
+the function increments the index *i (skipping the processed character in input) 
+and returns 0. 
+The function works to identify the | character as a pipeline operator during the tokenization process.
 */
 int	ft_is_pipe(char *input, int *i, t_token **tokens)
 {
@@ -119,15 +113,14 @@ int	ft_is_pipe(char *input, int *i, t_token **tokens)
 }
 
 /*
-Funkcja `ft_is_word` sprawdza, 
-czy znak w ciągu wejściowym `input` na pozycji `*i` 
-nie jest jednym ze znaków specjalnych `|`, `<`, `>` lub spacji. 
-Jeśli warunek jest spełniony, wywołuje funkcję `ft_create_word_tok`, 
-która tworzy token typu "słowo" i dodaje go do listy tokenów. 
-W przypadku błędu w `ft_create_word_tok` funkcja zwalnia pamięć 
-przydzieloną dla `input` i zwraca `-1`, aby zasygnalizować niepowodzenie. 
-W przeciwnym razie funkcja zwraca `0`. Ma na celu identyfikację 
-i tokenizację zwykłych słów w procesie analizy leksykalnej wejścia.*/
+The function ft_is_word checks if the character at the given position 
+in the input string (input) at index *i is not one of the special characters |, <, >, or a space. 
+If the condition is met, it calls the function ft_create_word_tok, 
+which creates a token of type "word" and adds it to the token list. 
+In case of an error in ft_create_word_tok, the function frees the memory allocated 
+for input and returns -1 to signal failure. Otherwise, the function returns 0. 
+Its goal is to identify and tokenize regular words during the lexical analysis of the input.
+*/
 int	ft_is_word(char *input, int *i, t_token **tokens, t_data *data)
 {
 	if (!(ft_strchr("| <>", input[*i])))
@@ -142,17 +135,13 @@ int	ft_is_word(char *input, int *i, t_token **tokens, t_data *data)
 }
 
 /*
-Funkcja `ft_single_redirection` obsługuje pojedyncze znaki 
-przekierowań wejścia (`<`) lub wyjścia (`>`), tworząc odpowiedni token. 
-Na podstawie znaku `x` przypisuje odpowiedni typ 
-(`T_IN_REDIR` lub `T_OUT_REDIR`) 
-oraz kopiuje znak do nowego łańcucha za pomocą `ft_strdup`. 
-Następnie wywołuje `create_token`, 
-aby dodać nowy token do listy `tokens`. 
-Funkcja zwraca `0` w przypadku powodzenia lub `-1`, 
-jeśli wystąpi błąd (np. brak pamięci). 
-Jej celem jest poprawne rozpoznawanie 
-i dodawanie tokenów dla operatorów przekierowań w analizatorze leksykalnym.
+The function ft_single_redirection handles single input (<) or output (>) 
+redirection characters by creating the appropriate token. 
+Based on the x character, it assigns the correct type (T_IN_REDIR or T_OUT_REDIR) 
+and copies the character into a new string using ft_strdup. 
+It then calls create_token to add the new token to the tokens list. 
+The function returns 0 if successful or -1 if an error occurs (e.g., out of memory). 
+Its goal is to correctly recognize and add tokens for redirection operators in the lexical analyzer.
 */
 static int	ft_single_redirection(char x, t_token **tokens, char *str)
 {

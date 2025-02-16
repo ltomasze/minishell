@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/04 13:24:27 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 14:54:34 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:59:40 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 16:01:57 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `ft_tokenizer` przetwarza ciąg znaków `inp`, 
-zamieniając go na listę tokenów (`t_token`). 
-Iteracyjnie analizuje wejście, identyfikując i tworząc tokeny dla redirekcji, 
-potoków oraz słów za pomocą funkcji pomocniczych (`ft_is_redir`, `ft_is_pipe`, 
-`ft_is_word`). W przypadku błędu przerywa działanie i zwalnia pamięć tokenów. 
-Pomija spacje w wejściu i, 
-jeśli analiza przebiegnie poprawnie, zwraca listę tokenów. 
-Dodatkowo zwalnia pamięć pierwotnej linii w `data->line`, 
-aby uniknąć wycieków pamięci.
+The function ft_tokenizer processes the input string inp, 
+converting it into a list of tokens (t_token). It iteratively analyzes the input, 
+identifying and creating tokens for redirections, pipes, 
+and words using helper functions (ft_is_redir, ft_is_pipe, ft_is_word). 
+In case of an error, it halts the execution and frees the allocated memory for the tokens. 
+It skips spaces in the input and, if the analysis is successful, returns the list of tokens. 
+Additionally, it frees th
 */
 t_token	*ft_tokenizer(t_data *data, char *inp)
 {
@@ -49,12 +47,12 @@ t_token	*ft_tokenizer(t_data *data, char *inp)
 }
 
 /*
-Funkcja `ft_free_tokens` zwalnia pamięć przydzieloną dla listy tokenów.
-Działa poprzez iterację po wszystkich tokenach, 
-zwalniając pamięć dla ich tekstu, a następnie same tokeny, 
-aż do wyczerpania listy. Na końcu ustawia wskaźnik na początek listy na `NULL`, 
-aby zapobiec dostępowi do już zwolnionej pamięci. 
-Funkcja najpierw sprawdza, czy lista nie jest pusta przed jej przetwarzaniem.
+The function ft_free_tokens frees the memory allocated for the list of tokens. 
+It works by iterating through all the tokens, freeing the memory for their text, 
+and then freeing the tokens themselves, until the list is exhausted. 
+At the end, it sets the pointer to the start of the list to NULL 
+to prevent access to already freed memory. 
+The function first checks if the list is not empty before processing it.
 */
 void	ft_free_tokens(t_token **tokens)
 {
@@ -74,14 +72,11 @@ void	ft_free_tokens(t_token **tokens)
 }
 
 /*
-Funkcja `create_token` tworzy nowy token z przekazanym tekstem `str` 
-i typem `type`, 
-a następnie dodaje go na koniec listy tokenów wskazywanej 
-przez wskaźnik `tokens`. 
-Jeśli lista jest pusta, nowy token staje się jej pierwszym elementem. 
-Funkcja zwraca `0` w przypadku powodzenia 
-lub `-1` w razie błędów (np. brak pamięci). 
-Celem jest dynamiczne zarządzanie listą tokenów podczas analizy leksykalnej.
+The function create_token creates a new token with the given text str and type type, 
+and then adds it to the end of the list of tokens pointed to by the tokens pointer. 
+If the list is empty, the new token becomes its first element. 
+The function returns 0 in case of success or -1 in case of errors (e.g., out of memory). 
+The goal is to dynamically manage the list of tokens during lexical analysis.
 */
 int	create_token(char *str, int type, t_token **tokens)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sanitize00.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 13:34:28 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/26 11:23:03 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:49:47 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:52:01 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,15 @@ static int	realloc_str_final(char **str_final,
 				int j, int str_final_len);
 
 /*
-Funkcja `process_str` przetwarza wejściowy ciąg znaków `str` 
-i zapisuje zaktualizowaną wersję w `str_final`. 
-Iteruje przez `str`, pomijając zbędne spacje 
-i tabulatory oraz obsługując specjalne przypadki, 
-takie jak cudzysłowy (`handle_quotes`) 
-i operatory (`handle_operators`). 
-Jeśli bufor `str_final` staje się za mały, 
-jego rozmiar jest zwiększany za pomocą `realloc_str_final`. 
-Funkcja kończy przetwarzanie, 
-dodając znak null (`\0`) na końcu ciągu i zwracając wynik. 
-Jej celem jest normalizacja i interpretacja wejściowego 
-ciągu znaków w kontekście składni poleceń.
+The `process_str` function processes the input string `str`  
+and stores the updated version in `str_final`.  
+It iterates through `str`, skipping unnecessary spaces  
+and tabs, while handling special cases like quotes (`handle_quotes`)  
+and operators (`handle_operators`).  
+If the buffer `str_final` becomes too small,  
+its size is increased using `realloc_str_final`.  
+The function completes the processing by adding a null character (`\0`) at the end of the string and returns the result.  
+Its purpose is to normalize and interpret the input string in the context of command syntax.
 */
 char	*process_str(char *str, char *str_final,
 int str_final_len)
@@ -63,10 +60,10 @@ int str_final_len)
 }
 
 /*
-Funkcja `is_operator` sprawdza, czy znak `c` 
-jest jednym z operatorów (`>`, `<`, `|`). 
-Jeśli tak, zwraca `1`; w przeciwnym razie zwraca `0`. 
-Służy do rozpoznawania operatorów w analizowanym tekście.
+The is_operator function checks whether the character c
+is one of the operators (>, <, |).
+If so, it returns 1; otherwise, it returns 0.
+It is used to recognize operators in the analyzed text.
 */
 static int	is_operator(char c)
 {
@@ -77,14 +74,13 @@ static int	is_operator(char c)
 }
 
 /*
-Funkcja `handle_quotes` przetwarza ciągi ujęte w cudzysłowy w łańcuchu `str`. 
-Ustala początek (`i_cp`) i koniec cudzysłowu, 
-kopiując jego zawartość do `str_final`. 
-Następnie aktualizuje pozycje wskaźników `i` i `j`. 
-Jeśli znak po cudzysłowie jest operatorem, 
-dodaje spację do `str_final`, aby oddzielić operator od reszty tekstu. 
-Funkcja pomaga obsługiwać poprawne 
-przetwarzanie cudzysłowów w wejściowych danych.
+The handle_quotes function processes strings enclosed in quotes within the str
+string. It determines the start (i_cp) and end of the quote,
+copying its contents to str_final.
+It then updates the positions of the i and j pointers.
+If the character after the quote is an operator,
+it adds a space to str_final to separate the operator from the rest of the text.
+This function helps manage correct processing of quotes in input data.
 */
 static void	handle_quotes(char *str, char *str_final, int *i, int *j)
 {
@@ -104,11 +100,10 @@ static void	handle_quotes(char *str, char *str_final, int *i, int *j)
 }
 
 /*
-Funkcja `handle_operators` kopiuje operator z `str` do `str_final`, 
-przesuwając wskaźniki `i` i `j`, 
-a następnie dodaje spację po operatorze. 
-Ułatwia to poprawne rozdzielanie 
-operatorów w analizowanym ciągu znaków.
+The handle_operators function copies the operator from str to str_final,
+moving the i and j pointers,
+and then adds a space after the operator.
+This helps correctly separate operators in the analyzed string.
 */
 static void	handle_operators(const char *str, char *str_final, int *i, int *j)
 {
@@ -117,14 +112,13 @@ static void	handle_operators(const char *str, char *str_final, int *i, int *j)
 }
 
 /*
-Funkcja `realloc_str_final` zwiększa dwukrotnie 
-rozmiar bufora `str_final`, 
-aby pomieścić więcej danych. Tworzy nowy, większy bufor, 
-kopiuje dotychczasową zawartość do nowego bufora, 
-zwalnia stary bufor i aktualizuje wskaźnik. 
-W przypadku błędu alokacji pamięci zwraca `-1`, 
-a przy sukcesie zwraca nową długość bufora. 
-Używana jest do dynamicznego zarządzania pamięcią dla rosnącego ciągu.
+The realloc_str_final function doubles the size of the str_final buffer
+to accommodate more data. It creates a new, larger buffer,
+copies the current content to the new buffer,
+frees the old buffer, and updates the pointer.
+In case of a memory allocation error, it returns -1,
+and upon success, it returns the new buffer length.
+It is used for dynamic memory management for the growing string.
 */
 static int	realloc_str_final(char **str_final,
 int j, int str_final_len)

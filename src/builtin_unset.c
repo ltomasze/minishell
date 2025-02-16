@@ -3,26 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 19:23:19 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 16:22:19 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:15:05 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:15:52 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `unset_bltin` usuwa zmienne środowiskowe wskazane 
-w tablicy `cmd` z listy `envp`. 
-Dla każdego argumentu tworzy jego nazwę (część przed znakiem `=`) 
-za pomocą `ft_substr`. Następnie szuka zmiennej w liście `envp` 
-za pomocą `fetch_envp_node`. Jeśli zmienna istnieje 
-i znajduje się na początku listy, usuwa ją przez `ft_remove_head_node`. 
-W przeciwnym razie usuwa odpowiedni węzeł, 
-znajdując jego poprzednika za pomocą `fetch_node_before`. 
-Po przetworzeniu każdego argumentu zwalnia pamięć dla nazwy 
-i kończy sukcesem (`0`). Jeśli napotka błąd, wywołuje `ft_perror_message`.
+The `unset_bltin` function removes environment variables specified  
+in the `cmd` array from the `envp` list. For each argument, it creates the name  
+(part before the `=` sign) using `ft_substr`. Then, it searches for the variable  
+in the `envp` list using `fetch_envp_node`. If the variable exists and is at the  
+beginning of the list, it is removed using `ft_remove_head_node`. Otherwise,  
+the corresponding node is removed by finding its predecessor with `fetch_node_before`.  
+After processing each argument, the function frees memory for the name and exits  
+successfully (`0`). If an error occurs, it calls `ft_perror_message`.
 */
 int	unset_bltin(char **cmd, t_data *data)
 {
@@ -54,12 +52,12 @@ int	unset_bltin(char **cmd, t_data *data)
 }
 
 /*
-Funkcja `ft_remove_head_node` usuwa pierwszy węzeł 
-listy zmiennych środowiskowych `envp`. 
-Przechowuje wskaźnik na następny węzeł, 
-zwalnia pamięć zajmowaną przez wartość i sam pierwszy węzeł, 
-a następnie ustawia wskaźnik głowy listy na kolejny węzeł. 
-Dzięki temu lista jest modyfikowana bez utraty danych poza usuniętym elementem.
+The `ft_remove_head_node` function removes the first node  
+of the environment variable list `envp`. It stores a pointer  
+to the next node, frees the memory occupied by the value and  
+the first node itself, and then sets the list head pointer  
+to the next node. This ensures the list is modified without  
+losing data except for the removed element.
 */
 void	ft_remove_head_node(t_envp **head)
 {

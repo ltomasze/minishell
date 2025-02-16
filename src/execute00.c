@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute00.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 12:34:09 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/26 11:14:36 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:38:46 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:40:34 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ static void	process_cmd(t_data *data, t_cmd *cmd_node,
 				int input_fd, int *fd_pipe);
 
 /*
-Funkcja `execute_cmds` odświeża tablicę zmiennych środowiskowych 
-na podstawie aktualnej listy połączonej, 
-a następnie wywołuje funkcję `recursive_pipeline`, 
-aby wykonać polecenia w potoku. Jest używana w projekcie *Minishell*, 
-aby zapewnić synchronizację stanu zmiennych środowiskowych 
-i obsłużyć złożone struktury potoków w trakcie wykonywania poleceń.
+The function `execute_cmds` refreshes the environment variables array based on the current linked list,  
+and then calls the `recursive_pipeline` function to execute commands in a pipeline.  
+It is used in the *Minishell* project to synchronize the state of environment variables  
+and handle complex pipeline structures during the execution of commands.
 */
 void	execute_cmds(t_data *data)
 {
@@ -37,19 +35,15 @@ void	execute_cmds(t_data *data)
 }
 
 /*
-Funkcja `recursive_pipeline` implementuje przetwarzanie potoków 
-(*pipelines*) w poleceniach w *Minishell*. Działa rekurencyjnie, 
-tworząc kolejne potoki za pomocą funkcji `pipe` 
-i procesów potomnych za pomocą `fork`. Jeśli `cmd_node` jest ostatnim w potoku, 
-wywołuje funkcję `process_last_cmd`. 
-W przeciwnym razie przetwarza aktualne polecenie 
-w procesie potomnym za pomocą `process_cmd`, 
-przekazując dane przez potok do następnego procesu. 
-Proces nadrzędny zarządza zamykaniem plików 
-i czeka na zakończenie procesów potomnych. 
-Funkcja pozwala na wykonanie ciągu powiązanych poleceń, 
-gdzie wyjście jednego jest wejściem dla kolejnego, 
-co jest kluczową funkcjonalnością w powłoce zgodnej z UNIX-em.
+The function `recursive_pipeline` implements pipeline processing for commands in *Minishell*.  
+It operates recursively, creating successive pipelines using the `pipe` function  
+and child processes using `fork`. If `cmd_node` is the last in the pipeline,  
+it calls the `process_last_cmd` function. Otherwise, it processes the current command  
+in a child process using `process_cmd`, passing data through the pipeline to the next process.  
+The parent process manages closing files and waits for the child processes to finish.  
+This function enables the execution of a sequence of linked commands,  
+where the output of one serves as the input for the next,  
+which is a key feature in a UNIX-like shell.
 */
 void	recursive_pipeline(int input_fd, t_data *data, t_cmd *cmd_node)
 {
@@ -80,19 +74,14 @@ void	recursive_pipeline(int input_fd, t_data *data, t_cmd *cmd_node)
 }
 
 /*
-Funkcja `process_last_cmd_child` obsługuje wykonanie 
-ostatniego polecenia w potoku w procesie potomnym w *Minishell*. 
-Ustawia domyślne sygnały, aktualizuje deskryptory wejścia i wyjścia, 
-wykonuje zduplikowanie deskryptorów dla wejścia 
-i wyjścia procesu oraz zamyka niepotrzebne deskryptory. 
-Jeśli polecenie jest funkcją wbudowaną, wywołuje ją, 
-a jeśli nie, szuka ścieżki do wykonywalnego pliku 
-w zmiennych środowiskowych i wywołuje `execve`, 
-aby uruchomić program z podanym środowiskiem. 
-W przypadku błędu w wykonaniu wyświetla komunikat diagnostyczny 
-i kończy proces z odpowiednim statusem. 
-Funkcja jest kluczowa dla poprawnego obsłużenia ostatniego polecenia 
-w potoku z właściwym zarządzaniem wejściem/wyjściem oraz obsługą błędów.
+The function `process_last_cmd_child` handles the execution of the last command in a pipeline  
+in a child process in *Minishell*. It sets default signals, updates input and output file descriptors,  
+duplicates file descriptors for the process's input and output, and closes unnecessary file descriptors.  
+If the command is a built-in function, it calls it. If not, it searches for the executable file path  
+in the environment variables and calls `execve` to execute the program with the provided environment.  
+In case of an execution error, it displays a diagnostic message and terminates the process with the appropriate status.  
+This function is crucial for correctly handling the last command in a pipeline,  
+ensuring proper input/output management and error handling.
 */
 static void	process_last_cmd_child(t_data *data, t_cmd *cmd_node, int input_fd)
 {
@@ -119,16 +108,13 @@ static void	process_last_cmd_child(t_data *data, t_cmd *cmd_node, int input_fd)
 }
 
 /*
-Funkcja `process_last_cmd` w *Minishell* uruchamia ostatnie polecenie w potoku, 
-tworząc nowy proces przy użyciu `fork`. 
-W procesie potomnym wywołuje funkcję `process_last_cmd_child`, 
-która realizuje wykonanie polecenia, zarządza wejściem/wyjściem 
-i obsługuje błędy. Proces nadrzędny ignoruje sygnały przerwania, 
-zamyka niepotrzebne deskryptory wejścia, 
-czeka na zakończenie procesu potomnego i zapisuje status wyjścia polecenia. 
-Funkcja jest niezbędna do obsługi ostatniego polecenia w potoku 
-i zapewnia poprawną synchronizację procesów 
-oraz ustawienie końcowego statusu wyjścia.
+The function `process_last_cmd` in *Minishell* executes the last command in a pipeline,  
+creating a new process using `fork`. In the child process, it calls the function `process_last_cmd_child`,  
+which handles the command execution, manages input/output, and handles errors.  
+The parent process ignores interrupt signals, closes unnecessary input file descriptors,  
+waits for the child process to finish, and records the exit status of the command.  
+This function is essential for handling the last command in a pipeline,  
+ensuring proper process synchronization and setting the final exit status.
 */
 static void	process_last_cmd(t_data *data, t_cmd *cmd_node, int input_fd)
 {
@@ -151,16 +137,13 @@ static void	process_last_cmd(t_data *data, t_cmd *cmd_node, int input_fd)
 }
 
 /*
-Funkcja `process_cmd` w *Minishell* obsługuje wykonanie 
-pojedynczego polecenia w ramach potoku. Ustawia sygnały na domyślne, 
-zarządza wejściem/wyjściem przez przekierowania i deskryptory plików, 
-oraz zamyka niepotrzebne deskryptory w potoku. 
-Jeśli polecenie jest wbudowane, wykonuje je od razu. 
-W przeciwnym razie wyszukuje pełną ścieżkę do programu 
-i uruchamia go za pomocą `execve`. Funkcja kończy działanie, 
-gdy wystąpi błąd lub zakończy wykonanie polecenia. 
-Jest kluczowa dla obsługi każdego kroku w potoku 
-i zapewnia prawidłowe przetwarzanie danych oraz synchronizację procesów.
+The function `process_cmd` in *Minishell* handles the execution of a single command within a pipeline.  
+It sets the default signals, manages input/output through redirections and file descriptors,  
+and closes unnecessary file descriptors in the pipeline.  
+If the command is built-in, it is executed immediately.  
+Otherwise, it searches for the full path to the program and runs it using `execve`.  
+The function concludes when an error occurs or after the command has completed its execution.  
+It is crucial for handling each step in a pipeline, ensuring correct data processing and process synchronization.
 */
 static void	process_cmd(t_data *data, t_cmd *cmd_node,
 	int input_fd, int *fd_pipe)

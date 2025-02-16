@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands01.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 20:04:18 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 18:48:39 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:25:25 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:27:42 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,13 @@ static int	ft_create_cmds(t_token *tokens, t_cmd *commands, int i);
 static int	ft_free_args(int i, char **cmds);
 
 /*
-Funkcja `ft_count_tok` liczy liczbę tokenów typu 
-T_WORD` (słowo) w łańcuchu tokenów, zatrzymując się, 
-gdy napotka token typu `T_PIPE`. 
-Działa w następujący sposób: 
-zaczyna od pierwszego tokena, sprawdza jego typ, 
-a jeśli jest różny od `T_WORD`, 
-przeskakuje o dwa tokeny do przodu 
-(przeskakuje przez inne typy tokenów), 
-jeśli napotka token `T_WORD`, inkrementuje licznik, 
-zmienia jego typ na `T_ARG`, 
-a następnie przechodzi do następnego tokena. 
-Funkcja zwraca liczbę tokenów `T_WORD` przed napotkaniem `T_PIPE`.
+The `ft_count_tok` function counts the number of `T_WORD` tokens (words) in a token chain,  
+stopping when it encounters a `T_PIPE` token.  
+It works as follows: it starts with the first token, checks its type,  
+and if it's not `T_WORD`, it skips two tokens ahead (skipping other token types).  
+If it encounters a `T_WORD` token, it increments the counter,  
+changes its type to `T_ARG`, and then moves to the next token.  
+The function returns the count of `T_WORD` tokens before encountering a `T_PIPE`.
 */
 static int	ft_count_tok(t_token *tokens)
 {
@@ -49,15 +44,12 @@ static int	ft_count_tok(t_token *tokens)
 }
 
 /*
-Funkcja `ft_command` analizuje token wskazywany 
-przez `*cur_token` i przetwarza go jako część polecenia. 
-Jeśli token ma typ `T_WORD`, liczy kolejne związane tokeny 
-(`ft_count_tok`), a następnie tworzy polecenie w bieżącej 
-strukturze `t_cmd` za pomocą `ft_create_cmds`. 
-W razie błędu zwalnia pamięć dla tokenów i poleceń oraz zwraca błąd. 
-Jeśli token ma typ `T_ARG`, przeskakuje przez wszystkie argumenty, 
-aktualizując wskaźnik `*cur_token`. 
-Funkcja zwraca `0`, gdy zakończy swoje działanie bez błędów.
+The `ft_command` function analyzes the token pointed to by `*cur_token` and processes it as part of a command.  
+If the token is of type `T_WORD`, it counts the subsequent related tokens (`ft_count_tok`),  
+then creates a command in the current `t_cmd` structure using `ft_create_cmds`.  
+In case of an error, it frees the memory for the tokens and commands and returns an error.  
+If the token is of type `T_ARG`, it skips over all arguments, updating the `*cur_token` pointer.  
+The function returns `0` when it finishes its work without errors.
 */
 int	ft_command(t_token **cur_token, t_token *tokens,
 t_cmd **cur_command, t_cmd *cmds)
@@ -84,15 +76,15 @@ t_cmd **cur_command, t_cmd *cmds)
 	return (0);
 }
 /*
-Funkcja `ft_create_cmds` tworzy tablicę argumentów 
-dla polecenia, przetwarzając tokeny typu 
-`T_ARG` aż do napotkania tokenu typu `T_PIPE`. 
-Dla każdego tokena typu `T_ARG` tworzy jego kopię 
-i zapisuje ją w tablicy `cmds`. Jeśli napotka błąd 
-(np. nie uda się skopiować tekstu tokenu), zwalnia 
-już przydzieloną pamięć i kończy działanie funkcji. 
-Na końcu przypisuje tablicę argumentów do struktury 
-polecenia (`commands->cmd`) i zwraca `0`, oznaczając sukces.
+The `ft_create_cmds` function creates an argument array 
+for the command by processing tokens of type `T_ARG` 
+until it encounters a `T_PIPE` token.  
+For each `T_ARG` token, it creates a copy of the token's text 
+and stores it in the `cmds` array.  
+If an error occurs (e.g., failure to copy the token's text), 
+it frees any previously allocated memory and ends the function.  
+Finally, it assigns the argument array to the command structure (`commands->cmd`) 
+and returns `0`, indicating success.
 */
 
 static int	ft_create_cmds(t_token *tokens, t_cmd *commands, int i)
@@ -123,13 +115,10 @@ static int	ft_create_cmds(t_token *tokens, t_cmd *commands, int i)
 	return (0);
 }
 /*
-Funkcja `ft_free_args` zwalnia pamięć przydzieloną 
-dla tablicy argumentów `cmds`. Iteruje po elementach 
-tablicy, zwalniając każdą z jej pozycji, a potem 
-zwalnia samą tablicę. Na początku wywołuje funkcję 
-`ft_perror_message`, prawdopodobnie w celu 
-wyświetlenia komunikatu o błędzie, 
-a na końcu zwraca `-1`, sygnalizując błąd.
+The `ft_free_args` function frees the memory allocated for the argument array `cmds`.  
+It iterates over the elements of the array, freeing each of its positions, and then frees the array itself.  
+At the beginning, it calls the `ft_perror_message` function, likely to display an error message.  
+Finally, it returns `-1`, signaling an error.
 */
 
 static int	ft_free_args(int i, char **cmds)

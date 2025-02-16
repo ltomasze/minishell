@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   envp00.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:38:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/26 10:50:15 by mbany            ###   ########.fr       */
+/*   Updated: 2025/02/16 15:35:47 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
- * Funkcja `free_envp` zwalnia pamięć 
- wszystkich węzłów listy połączonej `t_envp`.
- */
+The function `free_envp` frees the memory of all the nodes in the  
+`linked list t_envp`.
+*/
 void	free_envp(t_envp *head)
 {
 	t_envp	*tmp;
@@ -30,11 +30,9 @@ void	free_envp(t_envp *head)
 }
 
 /*
- * Funkcja `fetch_envp_node` przeszukuje listę 
- `t_envp` w poszukiwaniu węzła, 
- którego klucz odpowiada podanemu `key`.
- * Klucz to tekst występujący przed znakiem '=' w wartości węzła.
- * Zwraca wskaźnik na węzeł, jeśli znajdzie, lub NULL, jeśli nie znajdzie.
+The function `fetch_envp_node` searches the `t_envp` list for a node whose key  
+matches the provided `key`. The key is the text before the `=` character in the  
+node's value. It returns a pointer to the node if found, or NULL if not.
  */
 t_envp	*fetch_envp_node(t_envp *head, char *key)
 {
@@ -54,8 +52,8 @@ t_envp	*fetch_envp_node(t_envp *head, char *key)
 }
 
 /*
- * Funkcja `increment_shlvl` zwiększa wartość zmiennej środowiskowej `SHLVL`.
- * `SHLVL` odpowiada liczbie razy, kiedy uruchomiono powłokę w tej samej sesji.
+The function `increment_shlvl` increments the value of the `SHLVL` environment variable.  
+`SHLVL` represents the number of times the shell has been started within the same session.
  */
 void	increment_shlvl(t_envp *head)
 {
@@ -77,11 +75,9 @@ void	increment_shlvl(t_envp *head)
 	free(shlvl);
 }
 
-/*if (!node->value)
-		perror("ft_strjoin"); ta część wygląda na niepotrzebną*/
 /*
- * Funkcja `fetch_envp` przekształca tablicę `envp` na listę połączoną `t_envp`.
- * Zwraca wskaźnik na początek listy.
+The function `fetch_envp` converts the `envp` array into a linked list of type `t_envp`.  
+It returns a pointer to the head of the list.
  */
 t_envp	*fetch_envp(char **envp)
 {
@@ -113,17 +109,15 @@ t_envp	*fetch_envp(char **envp)
 }
 
 /*
-Funkcja `append_envp_node` dodaje nowy węzeł do listy jednokierunkowej 
-typu `t_envp` (prawdopodobnie lista przechowująca zmienne środowiskowe). 
-Działa to tak, że zaczyna od głowy listy (`*head`), 
-przeszukuje ją, aby dotrzeć do ostatniego węzła (jeśli lista nie jest pusta). 
-Następnie alokuje pamięć dla nowego węzła, 
-ustawia jego wskaźnik `next` na `NULL` (kończąc listę) 
-i przypisuje wartość `str` do pola `value` nowego węzła. 
-Jeżeli lista była pusta, nowy węzeł staje się głową listy. 
-Funkcja zwraca `0` w przypadku sukcesu, 
-a `-1` w przypadku błędu (np. problem z alokacją pamięci), 
-przy czym przy błędzie wypisuje komunikat o błędzie za pomocą `perror`.
+The function `append_envp_node` adds a new node to a singly linked list of type `t_envp` 
+(likely a list storing environment variables).  
+It works as follows: it starts at the head of the list (`*head`), 
+traverses it to reach the last node (if the list is not empty).  
+Then, it allocates memory for the new node, sets its `next` pointer to `NULL` 
+(ending the list), and assigns the value `str` to the `value` field of the new node.  
+If the list was empty, the new node becomes the head of the list.  
+The function returns `0` on success and `-1` on failure (e.g., 
+memory allocation issue), in which case it prints an error message using `perror`.
 */
 int	append_envp_node(t_envp **head, char *str)
 {

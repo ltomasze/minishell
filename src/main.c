@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 18:08:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/23 19:46:22 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:47:23 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:49:36 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `free_resources` zwalnia zasoby przypisane do struktury `data`. 
-Najpierw czyści historię poleceń za pomocą `rl_clear_history`. 
-Następnie, jeśli istnieje `cmd`, wywołuje funkcję `ft_free_commands` 
-do jej zwolnienia. Jeśli istnieje tablica `envp_arr`, 
-jest ona zwalniana przez `free_ft_split`. 
-Na końcu, funkcja zwalnia listę zmiennych środowiskowych 
-`envp` za pomocą `free_envp`. Po każdej operacji ustawia 
-odpowiednie wskaźniki na `NULL`, aby zapobiec 
-niekontrolowanemu dostępowi do zwolnionej pamięci.
+The free_resources function frees resources assigned to the data structure.
+It first clears the command history using rl_clear_history. Then, if cmd exists,
+it calls the ft_free_commands function to free it. If envp_arr exists,
+it is freed using free_ft_split. Finally, it frees the list of environment variables
+envp using free_envp. After each operation, it sets the corresponding pointers to NULL
+to prevent uncontrolled access to freed memory.
 */
 void	free_resources(t_data *data)
 {
@@ -53,10 +50,10 @@ int	read_line(t_data *data)
 }
 
 /*
-!data->line gdy jest NULL czyli gdy użyto 
-Ctrl+D(EOF) lub gdy był error na readline
-Funkcja `init` inicjalizuje strukturę `t_data` 
-i przygotowuje środowisko dla programu.
+!data->line occurs when it's NULL, which happens when Ctrl+D (EOF) is used
+or when there's an error in readline.
+The init function initializes the t_data structure and prepares the environment
+for the program.
 */
 void	init(t_data *data, int argc, char **argv, char **envp)
 {
@@ -80,14 +77,12 @@ void	init(t_data *data, int argc, char **argv, char **envp)
 }
 
 /*
-Funkcja `check_for_builtins` sprawdza, 
-czy komenda w strukturze `data->cmd` to jedna z komend 
-wbudowanych (jak `exit`, `export`, `unset`, czy `cd`). 
-Jeśli tak, wywołuje odpowiednią funkcję wbudowaną, 
-a w przypadku `exit` kończy program, 
-w innych przypadkach ustawia status zakończenia komendy 
-(`data->cmd_exit_status`). Jeśli nie ma komendy 
-lub występuje komenda kolejna (`next`), funkcja nie wykonuje żadnych działań.
+The check_for_builtins function checks if the command in the data->cmd structure
+is one of the built-in commands (like exit, export, unset, or cd).
+If so, it calls the corresponding built-in function.
+For the exit command, it terminates the program,
+while for other cases, it sets the command's exit status (data->cmd_exit_status).
+If there's no command or a next command (next), the function performs no actions.
 */
 void	check_for_builtins(t_data *data)
 {

@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   file_descriptor_handlers.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 11:51:13 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 17:02:08 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:43:12 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:44:41 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `update_input_fd` obsługuje 
-i aktualizuje deskryptor pliku wejściowego dla komendy, 
-sprawdzając różne przypadki: jeśli `here_doc` jest ustawiony, 
-wywołuje `get_heredoc`, 
-aby utworzyć potok dla wprowadzenia; jeśli wystąpił błąd przekierowania, 
-zwraca -1 jako sygnał błędu; jeśli podano plik wejściowy 
-i nie ma błędu przekierowania, otwiera plik w trybie odczytu, 
-aktualizując deskryptor. 
-Funkcja zapewnia poprawne źródło danych wejściowych 
-dla komend w potoku, obsługując pliki i here-dok.
+The function `update_input_fd` handles and updates the input file descriptor for a command,  
+checking various cases: if `here_doc` is set, it calls `get_heredoc` to create a pipe for input;  
+if a redirection error occurs, it returns -1 as an error signal; if an input file is provided and there is no redirection error,  
+it opens the file in read mode, updating the descriptor.  
+This function ensures the correct input source for commands in a pipeline, handling files and here-docs.
 */
 int	update_input_fd(t_cmd *cmd, int input_fd)
 {
@@ -46,14 +41,11 @@ int	update_input_fd(t_cmd *cmd, int input_fd)
 }
 
 /*
-Funkcja `get_output_fd` ustala deskryptor pliku wyjściowego dla danej komendy. 
-Jeśli komenda ma przypisany plik wyjściowy, otwiera go w trybie nadpisywania 
-lub dołączania w zależności od flagi `append`. 
-Jeśli nie ma pliku wyjściowego i komenda jest ostatnia, 
-używa standardowego wyjścia. W przeciwnym razie używa końca zapisu w potoku. 
-Zapewnia, że każda komenda w potoku ma odpowiednio zdefiniowany cel wyjściowy, 
-
-a w przypadku błędu otwarcia pliku generuje komunikat diagnostyczny.
+The function `get_output_fd` sets the output file descriptor for a given command.  
+If the command has an assigned output file, it opens it in overwrite or append mode depending on the `append` flag.  
+If there is no output file and the command is the last one, it uses standard output. Otherwise, it uses the write end of the pipe.  
+This ensures that each command in the pipeline has an appropriately defined output target,  
+and in the case of a file opening error, it generates a diagnostic message.
 */
 int	get_output_fd(t_cmd *cmd, int *fd_pipe)
 {
@@ -77,16 +69,11 @@ int	get_output_fd(t_cmd *cmd, int *fd_pipe)
 }
 
 /*
-Funkcja `env_bltin` obsługuje wbudowaną komendę `env`, 
-która wypisuje wszystkie zmienne środowiskowe zapisane w liście `data->envp`. 
-Jeśli do komendy `env` podano dodatkowe argumenty, 
-funkcja wyświetla błąd "env: Too many arguments" 
-i kończy działanie z kodem błędu `1`. 
-W przeciwnym razie iteruje przez listę zmiennych środowiskowych 
-i wypisuje każdą z nich. 
-Funkcja kończy proces, zwracając kod zakończenia `0`. 
-Jest to wymagane w *minishell*, by zapewnić poprawne działanie 
-i wyświetlanie zmiennych środowiskowych zgodnie ze specyfikacją.
+The function `env_bltin` handles the built-in `env` command, which prints all the environment variables stored in the `data->envp` list.  
+If additional arguments are provided to the `env` command, the function displays the error message "env: Too many arguments" and terminates with an error code `1`.  
+Otherwise, it iterates through the list of environment variables and prints each of them.  
+The function finishes by returning an exit code `0`.  
+This is required in *minishell* to ensure proper functioning and displaying of environment variables according to the specification.
 */
 void	env_bltin(t_data *data)
 {
@@ -107,14 +94,10 @@ void	env_bltin(t_data *data)
 }
 
 /*
-Funkcja `get_heredoc` odczytuje dane w trybie "here-document" 
-z wejścia standardowego, zapisując je do pipe, 
-aż napotka specjalny delimiter (wskazany przez `eof`). 
-Zwraca deskryptor pliku rury, 
-który będzie użyty jako wejście dla kolejnej komendy. 
-Używana jest w przypadku, gdy użytkownik chce przekazać dane do komendy, 
-zakończone specjalnym wskaźnikiem (np. `EOF`). 
-Celem jest obsługa dynamicznych danych wejściowych w potokach.
+The function `get_heredoc` reads data in "here-document" mode from standard input, writing it to a pipe until it encounters a special delimiter (indicated by `eof`).  
+It returns the pipe file descriptor, which will be used as input for the next command.  
+This function is used when the user wants to pass dynamic input to a command, ending with a special marker (e.g., `EOF`).  
+The purpose is to handle dynamic input in pipelines.
 */
 int	get_heredoc(t_cmd *cmd)
 {

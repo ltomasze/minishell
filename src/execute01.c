@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute01.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 12:34:09 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/26 11:17:42 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:40:45 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:42:16 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../includes/minishell.h"
 
@@ -16,15 +18,12 @@ static void	set_status_and_msg_err(char *err, int code, int *status);
 
 static int	check_for_dot_builtin(char *cmd, int *status);
 /*
-Funkcja `find_correct_path` szuka pełnej ścieżki do 
-wykonania podanej komendy `cmd` na podstawie zmiennej środowiskowej `PATH`. 
-Rozdziela wartość zmiennej `PATH` na osobne ścieżki, 
-łączy każdą z nich z nazwą komendy i sprawdza, 
-czy wynikowa ścieżka wskazuje na plik wykonywalny. 
-Jeśli taką znajdzie, zwraca jej pełną ścieżkę; 
-w przeciwnym razie zwraca `NULL`. Funkcja pozwala lokalizować 
-i uruchamiać polecenia znajdujące się w katalogach 
-zdefiniowanych w zmiennej `PATH`.
+The function `find_correct_path` searches for the full path to execute a given command `cmd` based on the `PATH` environment variable.  
+It splits the value of the `PATH` variable into separate directories,  
+concatenates each with the command name, and checks if the resulting path points to an executable file.  
+If such a path is found, it returns the full path;  
+otherwise, it returns `NULL`.  
+This function allows locating and executing commands found in directories defined in the `PATH` variable.
 */
 
 static char	*find_correct_path(t_envp *envp, char *cmd)
@@ -55,16 +54,15 @@ static char	*find_correct_path(t_envp *envp, char *cmd)
 }
 
 /*
-Funkcja `find_cmd_path` znajduje pełną ścieżkę do polecenia, 
-sprawdzając najpierw, czy jest to wbudowane polecenie (sprawdzenie doty), 
-a następnie czy polecenie jest plikiem wykonywalnym. 
-Jeśli nie ma odpowiednich uprawnień, ustawia odpowiedni kod błędu. 
-Następnie przeszukuje zmienne środowiskowe (szukając zmiennej `PATH`), 
-aby znaleźć ścieżkę, w której polecenie może być wykonywane. 
-Jeśli nie uda się znaleźć ścieżki lub polecenie nie istnieje, 
-ustawia błąd i zwraca `NULL`. Funkcja ta jest częścią projektu, 
-który odwzorowuje zachowanie powłoki, 
-w tym zarządzanie błędami przy wykonywaniu poleceń.
+The function `find_cmd_path` finds the full path to a command by first checking if it is a built-in command (using a built-in check),  
+and then checking if the command is an executable file.  
+If the command lacks the appropriate permissions, it sets the corresponding error code.  
+It then searches the environment variables (looking for the `PATH` variable)  
+to find the directory in which the command can be executed.  
+If it fails to find the path or the command does not exist,  
+it sets an error and returns `NULL`.  
+This function is part of a project that mimics shell behavior,  
+including error handling when executing commands.
 */
 char	*find_cmd_path(t_envp *envp, char *cmd, int *status)
 {
@@ -94,15 +92,13 @@ char	*find_cmd_path(t_envp *envp, char *cmd, int *status)
 }
 
 /*
-Funkcja `set_exit_status` analizuje kod zakończenia procesu 
-zapisany w zmiennej `status` i ustawia odpowiedni kod zakończenia 
-w `cmd_exit_status`. Jeśli proces zakończył się normalnie, 
-zapisuje jego kod wyjścia. 
-W przypadku zakończenia sygnałem dodaje wartość 128 do numeru sygnału. 
-Gdy proces został zatrzymany lub wznowiony, również ustawia odpowiedni kod. 
-Funkcja ta pozwala na poprawne odwzorowanie 
-i przekazanie kodów zakończenia procesów w powłoce, 
-co jest kluczowe do obsługi błędów i sygnałów w projekcie.
+The function `set_exit_status` analyzes the process exit code stored in the `status` variable  
+and sets the appropriate exit code in `cmd_exit_status`.  
+If the process ended normally, it saves its exit code.  
+In the case of termination by signal, it adds a value of 128 to the signal number.  
+When the process was stopped or resumed, it also sets the appropriate code.  
+This function allows for correct reflection and passing of process exit codes in the shell,  
+which is crucial for error and signal handling in the project.
 */
 void	set_exit_status(int *cmd_exit_status, int status)
 {
@@ -119,14 +115,12 @@ void	set_exit_status(int *cmd_exit_status, int status)
 }
 
 /*
-Funkcja `check_for_dot_builtin` sprawdza, 
-czy podana komenda to specjalny przypadek `"."` 
-lub `".."`. Jeśli tak, ustawia odpowiedni kod błędu i komunikat, 
-zwalnia pamięć przydzieloną dla komendy i zwraca wartość `1`, 
-co oznacza, że komenda nie powinna być dalej wykonywana. 
-W przeciwnym razie zwraca `0`. Funkcja zapobiega błędom, 
-gdy użytkownik próbuje użyć nieprawidłowych poleceń systemowych `"."` 
-lub `".."`, co zwiększa zgodność z zachowaniem powłoki.
+The function `check_for_dot_builtin` checks whether the given command is a special case `"."` or `".."`.  
+If so, it sets the appropriate error code and message, frees the memory allocated for the command,  
+and returns a value of `1`, indicating that the command should not be executed further.  
+Otherwise, it returns `0`.  
+This function prevents errors when the user tries to use invalid system commands `"."` or `".."`,  
+which increases compatibility with shell behavior.
 */
 static int	check_for_dot_builtin(char *cmd, int *status)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 14:33:45 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/23 19:50:55 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:06:24 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:09:42 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 static void	ft_echo_args(char **cmd);
 
 /*
-Funkcja `echo_bltin` realizuje działanie wbudowanej komendy `echo`, 
-wypisując argumenty przekazane w `cmd` na standardowe wyjście. 
-Obsługuje flagę `-n`, która pomija dodanie znaku nowej linii na końcu. 
-Analizuje kolejne argumenty, sprawdzając poprawność flagi `-n`. 
-Jeśli flaga występuje poprawnie, ustawia zmienną `flag` na `true` 
-i pomija dodawanie nowej linii po wypisaniu argumentów. 
-Po przetworzeniu funkcja wywołuje `ft_echo_args` 
-do wypisania właściwych argumentów i kończy proces kodem `0`. 
-Funkcja służy do odwzorowania działania polecenia `echo` w *minishell*.
+The echo_bltin function implements the behavior of the built-in echo command, 
+printing the arguments passed in cmd to the standard output. It handles the -n flag, 
+which skips appending a newline character at the end. The function processes each argument, 
+checking the correctness of the -n flag. If the flag is correctly present, 
+it sets the flag variable to true and omits adding a newline after printing the arguments. 
+After processing, the function calls ft_echo_args to print the proper arguments and completes the process with exit code 0. 
+This function replicates the behavior of the echo command in minishell.
 */
 void	echo_bltin(char **cmd)
 {
@@ -54,15 +52,12 @@ void	echo_bltin(char **cmd)
 }
 
 /*
-Funkcja `ft_echo_args` iteruje przez argumenty przekazane 
-w tablicy `cmd` (zawierającej komendy i ich argumenty), 
-wypisuje każdy z nich na standardowe wyjście, 
-dodając spację między argumentami, ale nie na końcu, 
-a następnie kończy działanie. Jest to implementacja w projekcie, 
-która wykonuje podobną funkcję do standardowej komendy `echo`, 
-wypisując argumenty komendy na ekran, 
-ale nie dodaje domyślnie nowej linii. 
-Funkcja jest używana, aby wyświetlić wszystkie argumenty bez dodatkowego formatu.
+The ft_echo_args function iterates over the arguments passed in the cmd array (containing commands 
+and their arguments), printing each one to the standard output, adding a space between the arguments, 
+but not at the end. After completing this, it ends the execution. 
+This implementation in the project performs a similar function to the standard echo command, 
+printing the command arguments to the screen without adding a newline by default. 
+The function is used to display all arguments without any extra formatting.
 */
 static void	ft_echo_args(char **cmd)
 {

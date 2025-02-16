@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   commands00.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 20:04:18 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 18:49:08 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:22:33 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:24:42 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `ft_commands_creation` odpowiada za tworzenie struktury 
-komend na podstawie wejściowego ciągu znaków w `data->line`. 
-Tokenizuje linię przy użyciu `ft_tokenizer`, 
-sprawdza poprawność tokenów poprzez `ft_check_tokens`, 
-a następnie generuje strukturę komend za pomocą `ft_commands`. 
-Jeśli na którymkolwiek etapie wystąpi błąd 
-(tokenizacja, weryfikacja lub tworzenie komend), 
-funkcja ustawia kod wyjścia `cmd_exit_status` na `1` i zwraca `-1`. 
-W przypadku sukcesu zwraca `0`.
+The `ft_commands_creation` function is responsible for creating the command structure  
+based on the input string in `data->line`. It tokenizes the line using `ft_tokenizer`,  
+checks the validity of the tokens with `ft_check_tokens`, and then generates the command structure  
+with `ft_commands`. If an error occurs at any stage (tokenization, verification, or command creation),  
+the function sets the exit status `cmd_exit_status` to `1` and returns `-1`.  
+On success, it returns `0`.
 */
 int	ft_commands_creation(t_data *data)
 {
@@ -50,14 +47,12 @@ int	ft_commands_creation(t_data *data)
 }
 
 /*
-Funkcja `ft_commands` przekształca listę tokenów na listę struktur poleceń. 
-Tworzy początkowy element listy poleceń, a następnie iteruje przez tokeny, 
-obsługując redirekcje, argumenty poleceń i operatory 
-potoków przy użyciu funkcji pomocniczych. 
-Jeśli wystąpi błąd w trakcie przetwarzania, 
-funkcja przerywa działanie i zwraca `NULL`. 
-Po zakończeniu tokeny są zwalniane, a lista poleceń zwracana. 
-Funkcja strukturalizuje dane wejściowe do dalszego przetwarzania poleceń.
+The `ft_commands` function transforms the token list into a list of command structures.  
+It creates the initial element of the command list and then iterates through the tokens,  
+handling redirections, command arguments, and pipeline operators using helper functions.  
+If an error occurs during processing, the function stops and returns `NULL`.  
+After completing the process, the tokens are freed, and the command list is returned.  
+This function structures the input for further command processing.
 */
 t_cmd	*ft_commands(t_token *tokens)
 {
@@ -88,13 +83,11 @@ t_cmd	*ft_commands(t_token *tokens)
 	return (commands);
 }
 /*
-Funkcja `ft_set_command` tworzy nową strukturę polecenia (`t_cmd`), 
-inicjalizuje jej pola wartościami domyślnymi 
-i dodaje ją na koniec listy `commands`. 
-Jeśli lista poleceń jest pusta, nowa struktura 
-staje się jej pierwszym elementem. 
-Funkcja służy do dynamicznego budowania listy poleceń, 
-a w przypadku błędu alokacji pamięci zwraca wartość sygnalizującą błąd.
+The `ft_set_command` function creates a new command structure (`t_cmd`),  
+initializes its fields with default values, and adds it to the end of the `commands` list.  
+If the command list is empty, the new structure becomes its first element.  
+This function is used for dynamically building the command list,  
+and in case of memory allocation failure, it returns a value indicating an error.
 */
 
 int	ft_set_command(t_cmd **commands)
@@ -124,16 +117,14 @@ int	ft_set_command(t_cmd **commands)
 	return (0);
 }
 /*
-Funkcja `ft_redir` obsługuje redirekcje w procesie przetwarzania tokenów. 
-Sprawdza, czy bieżący token jest typu innego niż `T_WORD` lub `T_PIPE`, 
-co wskazuje na potencjalną redirekcję. 
-Jeśli kolejny token istnieje i jest słowem (`T_WORD`), 
-wywołuje funkcję `ft_set_redir`, 
-aby ustawić odpowiednią redirekcję dla bieżącego polecenia. 
-W razie błędu lub braku poprawnych tokenów zwalnia zasoby 
-(tokeny i polecenia) i zwraca kod błędu, 
-co zapobiega błędnej konfiguracji poleceń 
-w przypadku problemów z redirekcjami.
+The `ft_redir` function handles redirections during token processing.  
+It checks if the current token is of a type other than `T_WORD` or `T_PIPE`,  
+indicating a potential redirection.  
+If the next token exists and is a word (`T_WORD`),  
+it calls the `ft_set_redir` function to set the appropriate redirection for the current command.  
+In case of an error or lack of valid tokens, it frees the resources (tokens and commands)  
+and returns an error code, preventing incorrect command configurations  
+in the event of issues with redirections.
 */
 
 int	ft_redir(t_token **current_tok, t_token *head_tok,
@@ -164,16 +155,12 @@ t_cmd **current_cmd, t_cmd *head_cmd)
 }
 
 /*
-Funkcja `ft_pipe` obsługuje tokeny typu `T_PIPE`,
- przechodząc do następnego tokena i aktualizując 
- polecenie po napotkaniu tego tokenu. Jeśli token 
- jest typu `T_PIPE`, wywołuje funkcję `ft_set_command` 
- w celu ustawienia polecenia, a jeśli ta funkcja 
- zakończy się błędem, zwalnia zasoby (tokeny i polecenia) 
- i zwraca `-1`. W przeciwnym razie, jeśli wszystko 
- przebiegnie pomyślnie, przechodzi do kolejnego 
- tokena i kolejnego polecenia. Jeśli początkowy 
- token jest `NULL`, zwraca `0`.
+The `ft_pipe` function handles `T_PIPE` tokens by moving to the next token  
+and updating the command when this token is encountered.  
+If the token is of type `T_PIPE`, it calls the `ft_set_command` function  
+to set the command, and if this function returns an error, it frees resources  
+(tokens and commands) and returns `-1`. Otherwise, if everything is successful,  
+it moves to the next token and command. If the initial token is `NULL`, it returns `0`.
 */
 
 int	ft_pipe(t_token **current_tok, t_token *head_tok,

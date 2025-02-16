@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 19:34:11 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 17:27:09 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:01:14 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:06:09 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,11 @@ static int	ft_change_value(char *var, char *res, t_data *data);
 static int	ft_cd_env_change(t_data *data, char *var, char *res);
 
 /*
-Funkcja `cd_bltin` obsługuje polecenie `cd` w shellu, 
-zmieniając bieżący katalog roboczy. 
-Jeśli podano więcej niż jeden argument, 
-zwraca błąd „Too many arguments”. 
-Jeśli brak argumentów, próbuje przejść do katalogu `HOME`, 
-wyszukując go w zmiennych środowiskowych. Jeśli podano jeden argument, 
-używa go do zmiany katalogu za pomocą funkcji `cd_handler`. 
-W przypadku błędu zwraca kod `1`, a przy sukcesie `0`.
+The function cd_bltin handles the cd command in the shell, changing the current working directory.
+If more than one argument is provided, it returns an error "Too many arguments".
+If no arguments are given, it attempts to change to the HOME directory by looking it up in the environment variables.
+If one argument is provided, it uses it to change the directory with the cd_handler function.
+In case of an error, it returns code 1, and on success, it returns 0.
 */
 int	cd_bltin(char **cmd, t_data *data)
 {
@@ -44,15 +41,13 @@ int	cd_bltin(char **cmd, t_data *data)
 }
 
 /*
-Funkcja `ft_cd_home` zmienia aktualny katalog roboczy 
-na katalog domowy użytkownika zapisany w zmiennej środowiskowej `HOME`. 
-Jeśli `HOME` nie jest ustawiona, funkcja zwraca błąd.
-Po zmianie katalogu aktualizuje zmienne środowiskowe `OLDPWD` i `PWD`, 
-które śledzą poprzedni oraz obecny katalog roboczy. 
-Jest kluczowa w projekcie *Minishell*, 
-ponieważ implementuje obsługę komendy `cd` bez argumentów, 
-umożliwiając użytkownikowi szybki powrót do katalogu domowego 
-zgodnie z zachowaniem standardowych powłok systemowych.
+The function ft_cd_home changes the current working directory to the user's home directory 
+stored in the HOME environment variable.
+If HOME is not set, the function returns an error.
+After changing the directory, it updates the environment variables OLDPWD and PWD, 
+which track the previous and current working directories.
+It is crucial in the Minishell project because it implements the handling of the cd command with no arguments, 
+allowing the user to quickly return to the home directory, in line with the behavior of standard system shells.
 */
 static int	ft_cd_home(t_data *data, t_envp *home)
 {
@@ -84,15 +79,13 @@ static int	ft_cd_home(t_data *data, t_envp *home)
 }
 
 /*
-Funkcja `cd_handler` zmienia katalog roboczy na wskazany przez argument `str`. 
-Jeśli zmiana katalogu nie powiedzie się, wyświetlany jest komunikat o błędzie, 
-a funkcja zwraca `-1`. 
-W przypadku sukcesu aktualizowane są zmienne środowiskowe `OLDPWD` 
-(ustawiana na poprzednią lokalizację) i `PWD` (ustawiana na nową lokalizację). 
-Funkcja jest potrzebna w projekcie *Minishell*, 
-aby obsługiwać komendę `cd` z podanym argumentem 
-i zapewniać prawidłową aktualizację zmiennych środowiskowych zgodnie 
-z zachowaniem standardowych powłok systemowych.
+The function cd_handler changes the working directory to the one specified by the argument str.
+If the directory change fails, an error message is displayed, and the function returns -1.
+In case of success, the environment variables OLDPWD (set to the previous location)
+and PWD (set to the new location) are updated.
+This function is necessary in the Minishell project to handle the cd command 
+with a given argument and ensure the proper updating of environment variables, 
+in line with the behavior of standard system shells.
 */
 static int	cd_handler(char *str, t_data *data)
 {
@@ -117,18 +110,11 @@ static int	cd_handler(char *str, t_data *data)
 }
 
 /*
-Funkcja `ft_change_value` zmienia wartość zmiennej środowiskowej 
-o nazwie `var` na nową wartość `res`. 
-Jeśli zmienna już istnieje, jej wartość jest aktualizowana, 
-w przeciwnym przypadku tworzony jest nowy węzeł 
-w liście zmiennych środowiskowych. 
-Funkcja używa dynamicznie alokowanej pamięci 
-do tworzenia nowego łańcucha znaków, 
-który łączy nazwę zmiennej z jej nową wartością. 
-Jest to istotne w projekcie *Minishell* 
-do prawidłowego zarządzania zmiennymi środowiskowymi, 
-w tym np. podczas obsługi zmiany katalogu roboczego (`cd`) 
-i aktualizacji zmiennych takich jak `PWD` czy `OLDPWD`.
+The function ft_change_value changes the value of the environment variable named var to the new value res.
+If the variable already exists, its value is updated; otherwise, a new node is created in the environment variable list.
+The function uses dynamically allocated memory to create a new string that combines the variable name with its new value.
+This is crucial in the Minishell project for proper management of environment variables, including, for example, 
+when handling the change of the working directory (cd) and updating variables such as PWD or OLDPWD.
 */
 static int	ft_change_value(char *var, char *res, t_data *data)
 {
@@ -160,16 +146,14 @@ static int	ft_change_value(char *var, char *res, t_data *data)
 }
 
 /*
-Funkcja `ft_cd_env_change` usuwa zmienną środowiskową o nazwie `var` 
-z listy zmiennych środowiskowych, jeśli jej nowa wartość (`res`) jest pusta. 
-Najpierw sprawdza, czy zmienna już istnieje, a następnie, 
-w zależności od jej pozycji w liście, 
-usuwa ją jako głowę listy lub z innej pozycji. 
-Jest używana w projekcie *Minishell* 
-do usuwania nieaktualnych lub niepotrzebnych zmiennych środowiskowych, 
-zwłaszcza podczas aktualizacji katalogu roboczego, 
-gdzie może być konieczne usunięcie wcześniejszych wartości 
-zmiennych takich jak `OLDPWD`.
+The function ft_cd_env_change removes the environment variable named var 
+from the environment variable list if its new value (res) is empty.
+It first checks if the variable already exists and then, 
+depending on its position in the list, 
+removes it either as the head of the list or from another position.
+It is used in the Minishell project to remove outdated or unnecessary environment variables, 
+particularly during the update of the working directory, 
+where it may be necessary to remove previous values of variables like OLDPWD.
 */
 static int	ft_cd_env_change(t_data *data, char *var, char *res)
 {

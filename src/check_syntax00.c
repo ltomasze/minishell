@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax00.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 14:22:39 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/26 11:24:07 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:17:03 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:17:07 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 

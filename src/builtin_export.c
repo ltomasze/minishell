@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 19:12:08 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/23 19:54:52 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:10:18 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:13:43 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static int	ft_change_env(char *var, int j, t_data *data);
 
 /*
-Funkcja `export_bltin` obsługuje polecenie `export` wbudowane w shellu. 
-Sprawdza, czy zostały podane zmienne do eksportu i czy mają poprawny format 
-(rozpoczynają się literą lub podkreślnikiem, 
-a pozostałe znaki przed `=` są alfanumeryczne lub podkreśleniem). 
-Jeśli zmienna jest niepoprawna, wyświetla komunikat o błędzie i zwraca `1`. 
-Dla poprawnych zmiennych wywołuje `ft_change_env`, aby dodać je do środowiska. 
-Funkcja kończy się sukcesem (`0`) lub błędem (`1`) 
-w przypadku niepoprawnych zmiennych lub innych problemów.
+The export_bltin function handles the export built-in command in the shell. 
+It checks whether variables to export have been provided 
+and if they have a correct format (starting with a letter or underscore, 
+with the remaining characters before = being alphanumeric or underscores). 
+If a variable is incorrect, it displays an error message and returns 1. 
+For valid variables, it calls ft_change_env to add them to the environment. 
+The function ends successfully (0) 
+or with an error (1) in case of invalid variables or other issues.
 */
 int	export_bltin(char **cmd, t_data *data)
 {
@@ -53,18 +53,14 @@ int	export_bltin(char **cmd, t_data *data)
 }
 
 /*
-Funkcja `ft_change_env` zajmuje się modyfikowaniem 
-lub dodawaniem zmiennych środowiskowych. Sprawdza, 
-czy przekazana zmienna zawiera znak `=`, 
-oddzielający nazwę zmiennej od jej wartości. 
-Następnie, przy użyciu `ft_substr`, wyodrębnia nazwę zmiennej. 
-Jeżeli zmienna już istnieje w `envp`, 
-jej wartość jest zastępowana nową (przekazaną w `var`). 
-Jeśli zmienna nie istnieje, jest dodawana do listy `envp`. 
-W przypadku błędu przy alokacji pamięci lub operacjach na liście, 
-funkcja zwraca `-1`. 
-Po przetworzeniu zmiennej odpowiednio zwalnia pamięć 
-dla nazw zmiennych i przypisuje nowe wartości.
+The ft_change_env function is responsible for modifying or adding environment
+variables. It checks whether the provided variable contains the = character,
+which separates the variable name from its value. Then, using ft_substr, it
+extracts the variable's name. If the variable already exists in envp, its
+value is replaced with the new one (provided in var). If the variable does
+not exist, it is added to the envp list. In case of an error during memory
+allocation or list operations, the function returns -1. After processing the
+variable, it frees the memory for variable names and assigns the new values.
 */
 static int	ft_change_env(char *var, int j, t_data *data)
 {
@@ -94,14 +90,13 @@ static int	ft_change_env(char *var, int j, t_data *data)
 }
 
 /*
-Funkcja `ft_print_env_var` realizuje działanie wbudowanej komendy `export`, 
-wypisując wszystkie zmienne środowiskowe przechowywane w strukturze `envp` 
-w formacie `declare -x VAR=value`. Jeśli przekazano argument do komendy, 
-funkcja kończy działanie z kodem `cmd_exit_status`. 
-W przeciwnym razie przechodzi po wszystkich zmiennych środowiskowych 
-i wypisuje je. Funkcja kończy działanie z kodem `0`. 
-Jest to część projektu *minishell*, 
-odwzorowująca funkcjonalność komendy `export` w tym interpreteurze.
+The `ft_print_env_var` function implements the built-in `export` command  
+by printing all environment variables stored in the `envp` structure in the  
+`declare -x VAR=value` format. If an argument is passed to the command,  
+the function exits with the status code `cmd_exit_status`. Otherwise, it iterates  
+through all environment variables and prints them. The function exits with a  
+status code of `0`. This is part of the *minishell* project, replicating the  
+functionality of the `export` command in this shell interpreter.
 */
 int	ft_print_env_var(t_data *data)
 {

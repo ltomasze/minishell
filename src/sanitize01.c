@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   sanitize01.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 13:34:28 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/26 11:05:41 by mbany            ###   ########.fr       */
+/*   Updated: 2025/02/16 15:52:49 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `optimize_str_final` tworzy nową 
-kopię łańcucha znaków `str_final` za pomocą `ft_strdup`, 
-zwalnia pamięć zajmowaną przez oryginalny łańcuch 
-i zwraca wskaźnik do nowej kopii. 
-Służy do zarządzania pamięcią, 
-aby zastąpić oryginalny wskaźnik nowym, 
-niezależnym łańcuchem znaków.
+The optimize_str_final function creates a new copy of the string str_final using ft_strdup,
+frees the memory occupied by the original string,
+and returns a pointer to the new copy.
+It is used for memory management to replace the original pointer with a new,
+independent string.
 */
 static char	*optimize_str_final(char *str_final)
 {
@@ -35,16 +33,13 @@ static char	*optimize_str_final(char *str_final)
 }
 
 /*
-Funkcja `sanitize_line` czyści wprowadzoną 
-linię tekstu w strukturze `data` poprzez 
-usunięcie początkowych i końcowych spacji 
-oraz tabulatorów za pomocą `ft_strtrim`, 
-tworzy dynamicznie pamięć na zaktualizowany łańcuch o podwójnej długości, 
-przetwarza ten łańcuch za pomocą `process_str`, 
-a następnie optymalizuje go przy użyciu `optimize_str_final`. 
-W razie błędów (np. alokacji pamięci) wyświetla komunikat 
-o błędzie i zwalnia zajętą pamięć. 
-Funkcja służy do przygotowania wprowadzonego tekstu do dalszego przetwarzania.
+The sanitize_line function cleans the entered line of text in the data structure by
+removing leading and trailing spaces and tabs using ft_strtrim,
+dynamically allocates memory for an updated string with double the length,
+processes the string using process_str,
+and then optimizes it with optimize_str_final.
+In case of errors (e.g., memory allocation issues), it displays an error message and frees the allocated memory.
+The function is used to prepare the entered text for further processing.
 */
 void	sanitize_line(t_data *data)
 {

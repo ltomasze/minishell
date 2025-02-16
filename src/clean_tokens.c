@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_toknes.c                                     :+:      :+:    :+:   */
+/*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/04 13:46:10 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 16:38:21 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:18:15 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:19:28 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ static int	ft_rm_empty_tokens(t_token **tokens);
 static void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev);
 
 /*
-Funkcja `ft_check_tokens` usuwa puste tokeny 
-z listy tokenów za pomocą `ft_rm_empty_tokens`, 
-a jeśli operacja się nie powiedzie (zwraca -1), 
-zwalnia całą listę tokenów funkcją `ft_free_tokens` i zwraca -1. 
-W przeciwnym razie funkcja kończy działanie sukcesem, zwracając 0. 
-Ma na celu upewnienie się, 
-że lista tokenów jest poprawna i wolna od pustych elementów.
+The `ft_check_tokens` function removes empty tokens  
+from the token list using `ft_rm_empty_tokens`. If the operation fails  
+(returning -1), it frees the entire token list using `ft_free_tokens`  
+and returns -1. Otherwise, the function ends successfully, returning 0.  
+Its purpose is to ensure that the token list is valid and free of empty elements.
 */
 int	ft_check_tokens(t_token **tokens)
 {
@@ -35,14 +33,13 @@ int	ft_check_tokens(t_token **tokens)
 }
 
 /*
-Funkcja `ft_remove_empty_tokens` usuwa puste tokeny z listy `tokens`. 
-Iteruje przez listę tokenów, a jeśli token ma pusty tekst (`text[0] == '\0'`), 
-sprawdza, czy jego typ jest zgodny z poprawną sekwencją tokenów; 
-w przypadku błędnej sekwencji zwraca błąd z komunikatem. 
-Jeśli token można usunąć, wywołuje `ft_remove_token`, 
-aby go usunąć i zaktualizować wskaźniki, po czym kontynuuje iterację. 
-Funkcja gwarantuje poprawność składni listy tokenów i usuwa zbędne elementy. 
-Na końcu zwraca `0` przy poprawnym zakończeniu.
+The `ft_remove_empty_tokens` function removes empty tokens from the `tokens` list.  
+It iterates through the token list, and if a token has an empty text (`text[0] == '\0'`),  
+it checks whether its type matches a valid token sequence. If the sequence is incorrect,  
+it returns an error with a message. If the token can be removed, it calls `ft_remove_token`  
+to delete it and update the pointers, then continues the iteration.  
+The function ensures the syntactic correctness of the token list and removes unnecessary elements.  
+It returns `0` upon successful completion.
 */
 int	ft_rm_empty_tokens(t_token **tokens)
 {
@@ -71,15 +68,12 @@ int	ft_rm_empty_tokens(t_token **tokens)
 }
 
 /*
-Funkcja `ft_remove_token` usuwa wskazany token `*to_del` z listy tokenów, 
-której głową jest `*head`. Jeśli usuwany token jest pierwszym w liście, 
-aktualizuje wskaźnik głowy na następny element, 
-zwalnia pamięć tekstu i struktury tokenu, 
-a następnie ustawia `*to_del` na nową głowę. W przeciwnym razie,
-aktualizuje wskaźnik `next` poprzedniego tokenu (`*prev`) tak, 
-by omijał usuwany, zwalnia pamięć usuwanego tokenu, 
-i przestawia `*to_del` na kolejny element listy. 
-Funkcja zapewnia poprawne zarządzanie pamięcią i strukturą listy tokenów.
+The `ft_remove_token` function removes the specified token `*to_del` from the token list,  
+with `*head` as the head of the list. If the token to be removed is the first in the list,  
+it updates the head pointer to the next element, frees the memory of the token's text and structure,  
+and then sets `*to_del` to the new head. Otherwise, it updates the `next` pointer of the previous token (`*prev`)  
+to skip the removed one, frees the memory of the removed token, and moves `*to_del` to the next element in the list.  
+The function ensures proper memory management and the integrity of the token list structure.
 */
 void	ft_remove_token(t_token **head, t_token **to_del, t_token **prev)
 {

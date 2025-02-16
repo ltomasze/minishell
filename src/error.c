@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 15:24:26 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 16:59:04 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:37:58 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:38:30 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ int	ft_perror_message(void)
 }
 
 /*
-Funkcja `ft_perror_free` wypisuje komunikat 
-o błędzie za pomocą `ft_perror_message`, 
-a następnie zwalnia pamięć wskazywaną 
-przez wskaźniki `first`, `second` i `third`, 
-jeśli nie są one puste. Na końcu zwraca `-1`, aby zasygnalizować błąd. 
-Funkcja służy do obsługi błędów i jednoczesnego czyszczenia 
-zaalokowanej pamięci, zapobiegając wyciekom.
+The function `ft_perror_free` prints an error message using `ft_perror_message`,  
+and then frees the memory pointed to by the `first`, `second`, and `third` pointers, if they are not NULL.  
+Finally, it returns `-1` to signal an error.  
+This function is used for error handling and simultaneously clearing allocated memory, preventing memory leaks.
 */
 int	ft_perror_free(char *first, char *second, char *third)
 {

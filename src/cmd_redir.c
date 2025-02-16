@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 13:27:24 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 17:31:59 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:19:37 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:22:04 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,13 @@ static void	ft_redir_out_cmd(t_cmd *current_cmd, char *str);
 static void	ft_redir_in_cmd(t_cmd *current_cmd, char *str);
 
 /*
-Funkcja `ft_set_redir` ustawia odpowiednią redirekcję 
-w bieżącym poleceniu na podstawie typu tokenu. 
-Jeśli w poleceniu wystąpił wcześniej błąd redirekcji, nic nie robi. 
-Tworzy kopię tekstu z następnego tokenu 
-(ścieżka do pliku lub znak redirekcji) 
-i w zależności od typu bieżącego tokenu 
-(`T_IN_REDIR`, `T_OUT_REDIR`, `T_APPEND`, `T_HEREDOC`), 
-wywołuje odpowiednią funkcję (`ft_redir_in_cmd`, `ft_redir_out_cmd`, 
-`ft_append_cmd`, `ft_here_doc_cmd`) 
-w celu ustawienia redirekcji w strukturze `t_cmd`. 
-W razie problemu z alokacją pamięci zwraca błąd.
+The `ft_set_redir` function sets the appropriate redirection in the current command based on the token type.  
+If there was a previous redirection error in the command, it does nothing.  
+It creates a copy of the text from the next token (the file path or the redirection symbol),  
+and depending on the type of the current token (`T_IN_REDIR`, `T_OUT_REDIR`, `T_APPEND`, `T_HEREDOC`),  
+it calls the appropriate function (`ft_redir_in_cmd`, `ft_redir_out_cmd`,  
+`ft_append_cmd`, `ft_here_doc_cmd`) to set the redirection in the `t_cmd` structure.  
+If there is a memory allocation issue, it returns an error.
 */
 int	ft_set_redir(t_token **current_tok, t_cmd *current_cmd)
 {
@@ -51,14 +47,12 @@ int	ft_set_redir(t_token **current_tok, t_cmd *current_cmd)
 }
 
 /*
-Funkcja `ft_redir_in_cmd` obsługuje ustawianie pliku wejściowego
- dla polecenia w strukturze `t_cmd`. 
-Sprawdza, czy plik `str` jest dostępny do odczytu; jeśli nie, 
-ustawia błąd redirekcji w polu `redir_error`, 
-zwalnia pamięć dla `str` i kończy działanie. 
-Jeśli dostęp jest poprawny, zwalnia poprzedni plik wejściowy (jeśli istnieje), 
-przypisuje nowy plik do `infile` i ustawia `here_doc` na `false`, 
-aby oznaczyć brak użycia heredoc.
+The `ft_redir_in_cmd` function handles setting the input file for the command in the `t_cmd` structure.  
+It checks whether the file `str` is available for reading; if not,  
+it sets the redirection error in the `redir_error` field,  
+frees memory for `str`, and ends the operation.  
+If access is valid, it frees the previous input file (if it exists),  
+assigns the new file to `infile`, and sets `here_doc` to `false` to indicate no use of a heredoc.
 */
 static void	ft_redir_in_cmd(t_cmd *current_cmd, char *str)
 {
@@ -75,17 +69,11 @@ static void	ft_redir_in_cmd(t_cmd *current_cmd, char *str)
 }
 
 /*
-Funkcja `ft_redir_out_cmd` ustawia plik wyjściowy 
-dla polecenia w strukturze `t_cmd`. 
-Próbuje otworzyć plik `str` w trybie zapisu, tworząc go, 
-jeśli nie istnieje, i usuwając jego zawartość, jeśli istnieje. 
-Jeśli operacja otwarcia zakończy się niepowodzeniem, 
-wypisuje komunikat błędu, ustawia flagę błędu redirekcji 
-`redir_error` i zwalnia pamięć dla `str`. 
-Jeśli otwarcie się powiedzie, zamyka deskryptor pliku, 
-zwalnia ewentualny poprzedni plik wyjściowy, 
-przypisuje nowy do `outfile` i ustawia `append` na `false`, 
-aby wskazać, że dane mają być nadpisywane.
+The `ft_redir_out_cmd` function sets the output file for the command in the `t_cmd` structure.  
+It tries to open the file `str` in write mode, creating it if it doesn't exist and clearing its contents if it does.  
+If the file opening fails, it prints an error message, sets the redirection error flag `redir_error`, and frees the memory for `str`.  
+If the opening succeeds, it closes the file descriptor, frees any previous output file, assigns the new one to `outfile`, 
+and sets `append` to `false` to indicate that the data should be overwritten.
 */
 static void	ft_redir_out_cmd(t_cmd *current_cmd, char *str)
 {
@@ -107,15 +95,14 @@ static void	ft_redir_out_cmd(t_cmd *current_cmd, char *str)
 }
 
 /*
-Funkcja `ft_append_cmd` otwiera plik `str` 
-w trybie dopisywania (O_APPEND) lub tworzy go, 
-jeśli nie istnieje (O_CREAT). 
-Jeśli otwarcie się nie powiedzie, 
-ustawia flagę błędu przekierowania w strukturze `current_cmd`, 
-wyświetla komunikat błędu i zwalnia pamięć dla `str`. 
-W przeciwnym razie zamyka plik, 
-aktualizuje wskaźnik `outfile` w `current_cmd` do nowego pliku `str` 
-i ustawia tryb dopisywania (`append`) na `true`.
+The `ft_append_cmd` function opens the file `str` in append mode (O_APPEND) 
+or creates it if it doesn't exist (O_CREAT).  
+If the opening fails, it sets the redirection 
+error flag in the `current_cmd` structure, prints an error message, 
+and frees the memory for `str`.  
+Otherwise, it closes the file, 
+updates the `outfile` pointer in `current_cmd` to the new file `str`, 
+and sets the append mode (`append`) to `true`.
 */
 static void	ft_append_cmd(t_cmd *current_cmd, char *str)
 {
@@ -137,12 +124,9 @@ static void	ft_append_cmd(t_cmd *current_cmd, char *str)
 }
 
 /*
-Funkcja `ft_here_doc_cmd` ustawia w strukturze 
-`current_cmd` plik wejściowy na `str`, 
-zwalniając wcześniej zajmowaną pamięć przez 
-poprzedni plik wejściowy, jeśli istniał, oraz oznacza, 
-że używane jest polecenie typu here document, 
-ustawiając flagę `here_doc` na `true`.
+The `ft_here_doc_cmd` function sets the input file in the `current_cmd` structure to `str`,  
+freeing the memory previously occupied by the old input file if it existed, and marks  
+that a here document command is being used by setting the `here_doc` flag to `true`.
 */
 static void	ft_here_doc_cmd(t_cmd *current_cmd,
 char *str)

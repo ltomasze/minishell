@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   token_satinization.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 14:49:12 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/25 16:31:54 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:56:34 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:59:16 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `ft_skip_sq` przeskakuje przez zawartość pojedynczych cudzysłowów (`'`) 
-w ciągu znaków `str`, zaczynając od pozycji `*n`. Najpierw zwiększa `*n`, 
-by pominąć otwierający cudzysłów, 
-następnie iteruje aż do napotkania zamykającego cudzysłowu 
-lub końca łańcucha, a na końcu zwiększa `*n`, 
-by przejść za zamykający cudzysłów. 
-Funkcja umożliwia poprawne ignorowanie zawartości 
-pojedynczych cudzysłowów przy analizie leksykalnej.
+The function ft_skip_sq skips over the content inside single quotes (') 
+in the string str, starting from position *n. 
+It first increments *n to skip the opening quote, 
+then iterates until it encounters the closing quote or the end of the string. 
+Finally, it increments *n again to move past the closing quote.
+This function allows correct handling of the content inside single quotes when performing lexical analysis.
 */
 void	ft_skip_sq(int *n, char *str)
 {
@@ -31,13 +29,13 @@ void	ft_skip_sq(int *n, char *str)
 }
 
 /*
-Funkcja `ft_cross_dq` przetwarza ciąg znaków między podwójnymi cudzysłowami, 
-zaczynając od indeksu `i+1`. Jeśli napotka znak `$`, 
-wywołuje funkcję `ft_dollar` w celu przetworzenia zmiennej środowiskowej; 
-w przypadku błędu zwraca `-1`. Po przetworzeniu każdego znaku (innego niż `$`), 
-funkcja przechodzi do następnego, aż osiągnie zamykający cudzysłów. 
-Na końcu inkrementuje `i` o 1, aby wskazać pozycję za cudzysłowem 
-i zwraca `0`, informując o zakończeniu.
+The function ft_cross_dq processes the string between double quotes, 
+starting from index i+1. If it encounters the $ character, 
+it calls the ft_dollar function to process the environment variable. 
+In case of an error, it returns -1. After processing each character (other than $), 
+the function proceeds to the next one until it reaches the closing quote. 
+At the end, it increments i by 1 to point to the position after the closing quote and returns 0, 
+indicating completion.
 */
 int	ft_cross_dq(int *i, char **word, t_data *data)
 {
@@ -57,17 +55,13 @@ int	ft_cross_dq(int *i, char **word, t_data *data)
 }
 
 /*
-Funkcja `ft_clear_quote` usuwa cudzysłowy (jedno- lub podwójne) z ciągu znaków, 
-zaczynając od pozycji `i`. 
-Szuka pozycji zamykającego cudzysłowu 
-i tworzy nowy ciąg znaków bez tego cudzysłowa. 
-Zmienna `new_word` jest alokowana na nową wersję ciągu, 
-w której fragment przed i po cudzysłowie jest kopiowany, 
-pomijając sam znak cytatu. Po zakończeniu alokacji 
-i kopiowania pamięci, pierwotny ciąg `*word` jest zwalniany, 
-a wskaźnik `*word` jest aktualizowany na nowo stworzoną wersję. 
-Funkcja zwraca `0` po udanym przetworzeniu, 
-a w przypadku błędu alokacji wywołuje `ft_perror_message`.
+The function ft_clear_quote removes quotes (either single or double) from a string, 
+starting from position i. It searches for the position of the closing quote 
+and creates a new string without that quote. The variable new_word is allocated 
+for a new version of the string, where the fragment before and after the quote is copied, 
+omitting the quote itself. After the memory allocation and copying are completed, 
+the original string *word is freed, and the pointer *word is updated to point to the newly created version. 
+The function returns 0 after successful processing, and in case of memory allocation failure, it calls ft_perror_message.
 */
 int	ft_clear_quote(int *i, char **word, char del)
 {

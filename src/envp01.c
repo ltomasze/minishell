@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   envp01.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:38:07 by ltomasze          #+#    #+#             */
-/*   Updated: 2025/01/26 10:50:29 by mbany            ###   ########.fr       */
+/*   Updated: 2025/02/16 15:37:46 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `remove_envp_node` usuwa węzeł listy zmiennych środowiskowych `envp`, 
-który znajduje się za podanym węzłem `prev_node`. 
-Aktualizuje wskaźnik `next` w `prev_node`, 
-aby pominąć usuwany węzeł, 
-a następnie zwalnia pamięć zajmowaną przez jego wartość i sam węzeł. 
-Funkcja zapobiega wyciekowi pamięci i zachowuje ciągłość listy.
+The function `remove_envp_node` removes a node from the environment variable list `envp` that is located after the given node `prev_node`.  
+It updates the `next` pointer in `prev_node` to skip the node being removed, and then frees the memory occupied by both its value and the node itself.  
+This function prevents memory leaks and ensures the continuity of the list.
 */
 void	remove_envp_node(t_envp *prev_node)
 {
@@ -34,16 +31,13 @@ void	remove_envp_node(t_envp *prev_node)
 }
 
 /*
-Funkcja `fetch_node_before` wyszukuje węzeł poprzedzający węzeł w liście `envp`, 
-który zawiera zmienną środowiskową o nazwie zgodnej z podanym kluczem `key`. 
-Oblicza długość klucza, a następnie iteruje po liście, 
-porównując `key` z nazwami zmiennych w węzłach. 
-Jeśli zmienna znajduje się w pierwszym węźle, zwraca jego wskaźnik. 
-Jeśli zmienna jest dalej w liście, 
-zwraca wskaźnik na węzeł bezpośrednio poprzedzający. 
-Jeśli zmiennej nie ma, zwraca `NULL`. 
-Funkcja służy do modyfikowania listy przez umożliwienie 
-usuwania lub aktualizacji znalezionego węzła.
+The function `fetch_node_before` searches for the node that precedes the node in the `envp` 
+list containing an environment variable with a name matching the given `key`.  
+It calculates the length of the key and then iterates through the list, comparing `key` with the variable names in the nodes.  
+If the variable is in the first node, it returns its pointer.  
+If the variable is further in the list, it returns the pointer to the node directly preceding it.  
+If the variable is not found, it returns `NULL`.  
+This function is useful for modifying the list by enabling the removal or updating of the found node.
 */
 t_envp	*fetch_node_before(t_envp **head, char *key)
 {
@@ -71,14 +65,12 @@ t_envp	*fetch_node_before(t_envp **head, char *key)
 }
 
 /*
-Funkcja `convert_envp_llist_to_array` konwertuje 
-listę połączoną zmiennych środowiskowych na tablicę łańcuchów znaków. 
-Iteruje po liście, kopiując wartości każdej zmiennej 
-do nowej tablicy i dodaje na końcu wskaźnik `NULL`. 
-Funkcja jest używana w projekcie *Minishell*, 
-aby dostosować format zmiennych środowiskowych do wymagań funkcji systemowych, 
-które oczekują tablicy jako argumentu, 
-np. podczas wykonywania zewnętrznych poleceń.
+The function `convert_envp_llist_to_array` converts a linked list of environment variables into an array of strings.  
+It iterates through the list, copying the values of each variable into a new array, 
+and appends a `NULL` pointer at the end.  
+This function is used in the *Minishell* project to adapt the format of environment variables to meet the requirements 
+of system functions that expect an array as an argument,  
+such as when executing external commands.
 */
 char	**convert_envp_list_to_array(t_envp *head)
 {

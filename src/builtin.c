@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbany <mbany@student.42warsaw.pl>          +#+  +:+       +#+        */
+/*   By: ltomasze <ltomasze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 19:40:51 by mbany             #+#    #+#             */
-/*   Updated: 2025/01/23 19:52:40 by mbany            ###   ########.fr       */
+/*   Created: 2025/02/16 15:16:10 by ltomasze          #+#    #+#             */
+/*   Updated: 2025/02/16 15:16:13 by ltomasze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-Funkcja `exit_bltin` obsługuje polecenie `exit` wbudowane w shellu. 
-Sprawdza, czy podano argument (kod wyjścia). 
-Jeśli tak, weryfikuje, czy jest to liczba 
-(z opcjonalnym znakiem minus na początku), 
-i jeśli nie, wyświetla komunikat o błędzie, 
-zwalnia zasoby i kończy program z kodem wyjścia `2`. 
-Jeśli argument jest poprawny, zamienia go na liczbę za pomocą `ft_atoi`. 
-Gdy brak argumentu, używa domyślnego kodu wyjścia. 
-Następnie zwalnia zasoby i zamyka program z odpowiednim kodem wyjścia.
+The function exit_bltin handles the exit built-in command in the shell.
+It checks if an argument (exit code) is provided.
+If so, it verifies whether the argument is a number (with an optional minus sign at the beginning), and if not, it displays an error message, frees resources, and exits the program with exit code 2.
+If the argument is valid, it converts it to a number using ft_atoi.
+If no argument is provided, the default exit code is used.
+Then, it frees resources and closes the program with the appropriate exit code.
 */
 void	exit_bltin(t_data *data)
 {
@@ -51,18 +48,10 @@ void	exit_bltin(t_data *data)
 }
 
 /*
-Funkcja `check_for_builtin_and_execute` sprawdza, 
-czy polecenie przekazane jako argument `cmd` jest 
-jednym z wbudowanych poleceń powłoki, takich jak `exit`, 
-`env`, `echo`, `pwd`, `cd`, `unset`, czy `export`, 
-i wykonuje odpowiednią funkcję implementującą dane polecenie. 
-Jeśli polecenie jest wbudowane, zostaje ono obsłużone natychmiast 
-w procesie rodzica (bez tworzenia procesu podrzędnego). 
-Funkcja zwraca `-1`, jeśli brak polecenia, a `0`, 
-jeśli wykonano wbudowane polecenie. Jest to kluczowe 
-w projekcie *minishell*, aby obsłużyć wbudowane polecenia 
-zgodnie z wymaganiami i bez uruchamiania ich jako oddzielnych procesów, 
-co różni je od poleceń zewnętrznych. 
+The function check_for_builtin_and_execute checks if the command passed as the argument cmd is one of the built-in shell commands, such as exit, env, echo, pwd, cd, unset, or export, and executes the corresponding function implementing the command.
+If the command is built-in, it is handled immediately in the parent process (without creating a child process).
+The function returns -1 if the command is not found and 0 if a built-in command is executed.
+This is crucial in the minishell project to handle built-in commands according to the requirements, without running them as separate processes, which distinguishes them from external commands.
 */
 int	check_for_builtin_and_execute(char **cmd, t_data *data)
 {
